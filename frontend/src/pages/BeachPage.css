@@ -1,0 +1,559 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.beach-container {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Navbar Styles */
+.beach-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+#Bpagelogo {
+    height: 50px;
+    width: auto;
+}
+
+.beach-nav-txt {
+    display: flex;
+    gap: 30px;
+}
+
+.beach-nav-txt p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.beach-nav-txt p:hover {
+    color: #FF6B6B;
+}
+
+.beach-navbar button {
+    padding: 10px 25px;
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.beach-navbar button:hover {
+    background-color: #FF5252;
+    transform: translateY(-2px);
+}
+
+/* Hero Section */
+.middle-content {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../uploads/BeachPage/MainPage.png') no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+}
+
+.middle-content h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.middle-content h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.middle-content button {
+    padding: 15px 40px;
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.middle-content button:hover {
+    background-color: #FF5252;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Quotes Section */
+.qoutes {
+    padding: 80px 10%;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.qoutes h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.qoutes h3 {
+    font-size: 1.5rem;
+    color: #666;
+    font-weight: 300;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.qoutes button {
+    margin-top: 30px;
+    background: none;
+    border: none;
+    color: #FF6B6B;
+    font-size: 2rem;
+    cursor: pointer;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Web Features Section */
+.web-features {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px 10%;
+    background-color: white;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.web-features div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 250px;
+    text-align: center;
+}
+
+#robo-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    content: url('../uploads/BeachPage/robo-icon.png');
+}
+
+#coconut-tree {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    content: url('../uploads/BeachPage/coconut.png');
+}
+
+#choices {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    content: url('../uploads/BeachPage/choice.png');
+}
+
+.web-features p {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+}
+
+/* Beaches Listed Container */
+.beaches-listed-container {
+    width: 100%;
+    padding: 50px 5%;
+    background-color: #f5f5f5;
+}
+
+.north-goa, .south-goa {
+    margin-bottom: 50px;
+}
+
+.north-goa h1, .south-goa h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.north-goa h1::after, .south-goa h1::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background-color: #FF6B6B;
+    margin: 10px auto;
+}
+
+/* Beach Cards */
+.beach-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8,
+.b9, .b10, .b11, .b12, .b13, .b14, .b15, .b16 {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.b1:hover, .b2:hover, .b3:hover, .b4:hover, .b5:hover, .b6:hover, .b7:hover, .b8:hover,
+.b9:hover, .b10:hover, .b11:hover, .b12:hover, .b13:hover, .b14:hover, .b15:hover, .b16:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Beach Images */
+#baga {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/baga.png');
+}
+
+#calangute {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/calangut.png');
+}
+
+#anjuna {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/anjuna.png');
+}
+
+#vagator {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/vagator.png');
+}
+
+#arambol {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/arambol.png');
+}
+
+#morjim {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/morjim.png');
+}
+
+#ashwem {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/ashwem.png');
+}
+
+#candolim {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/candolim.png');
+}
+
+#palolem {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/palolem.png');
+}
+
+#agonda {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/agonda.png');
+}
+
+#colva {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/colva.png');
+}
+
+#Benaulim {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/benaulim.png');
+}
+
+#varca {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/varca.png');
+}
+
+#Betalbatim {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/betalbatim.png');
+}
+
+#majorda {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/majorda.png');
+}
+
+#Arossim {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    content: url('../uploads/BeachPage/arossim.png');
+}
+
+/* Beach Card Content */
+.beach-card-content {
+    padding: 20px;
+}
+
+.beach-card-content p:first-of-type {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.beach-card-content p:last-of-type {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.beach-card-content button {
+    padding: 10px 25px;
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.beach-card-content button:hover {
+    background-color: #FF5252;
+    transform: translateY(-2px);
+}
+
+/* Explore More Section */
+.explore-more {
+    position: relative;
+    height: 400px;
+    margin: 50px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#bgimg-explore-more {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    content: url('../uploads/BeachPage/bottomimg.png');
+}
+
+.explore-more h1 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.explore-more button {
+    padding: 15px 40px;
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.explore-more button:hover {
+    background-color: #FF5252;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer Styles */
+.beach-footer {
+    background-color: #333;
+    color: white;
+    padding: 50px 10%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.beach-footer h4 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #FF6B6B;
+}
+
+.beach-footer ul {
+    list-style: none;
+}
+
+.beach-footer ul li {
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.beach-footer ul li:hover {
+    color: #FF6B6B;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .middle-content h1 {
+        font-size: 3rem;
+    }
+    
+    .middle-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .qoutes h1 {
+        font-size: 2rem;
+    }
+    
+    .qoutes h3 {
+        font-size: 1.2rem;
+    }
+    
+    .web-features {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .beach-navbar {
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px 5%;
+    }
+    
+    .beach-nav-txt {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .middle-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .explore-more h1 {
+        font-size: 2rem;
+    }
+    
+    .north-goa h1, .south-goa h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .middle-content h1 {
+        font-size: 2rem;
+    }
+    
+    .middle-content h2 {
+        font-size: 1.2rem;
+    }
+    
+    .middle-content button, .explore-more button {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+    
+    .qoutes {
+        padding: 50px 5%;
+    }
+    
+    .qoutes h1 {
+        font-size: 1.8rem;
+    }
+    
+    .qoutes h3 {
+        font-size: 1rem;
+    }
+    
+    .beach-footer {
+        grid-template-columns: 1fr;
+    }
+}
