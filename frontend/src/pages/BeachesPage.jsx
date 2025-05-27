@@ -37,9 +37,9 @@ const BeachPage = () => {
                 <div className="beach-navbar">
                     <img src="" alt="Goa Beaches Logo" id="Bpagelogo" />
                     <div className="beach-nav-txt">
-                        <a href="/"><p>Home</p></a>
+                       <a href="/"><p>Home</p></a> 
                         <p>Adventures</p>
-                        <a href="#"><p>Beaches</p></a>
+                        <p>Beaches</p>
                         <p>Taste & Rest</p>
                         <p>Wild Life</p>
                         <a href="/Feedback"><p>Feedback</p></a>
