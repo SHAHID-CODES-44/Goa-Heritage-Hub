@@ -1,0 +1,321 @@
+/* Base styles */
+.taste-and-rest-page {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+}
+/* Main Navbar Container */
+.navbar-food {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Navigation Links Container */
+.nav-food-txt {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Individual Nav Items */
+.nav-food-txt p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+}
+
+/* Nav Item Hover Effect */
+.nav-food-txt p:hover {
+  color: #ff6b6b;
+}
+
+.nav-food-txt p::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ff6b6b;
+  transition: width 0.3s ease;
+}
+
+.nav-food-txt p:hover::after {
+  width: 100%;
+}
+
+/* Buttons Container */
+.btns-food {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Buttons */
+.btns-food button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 25px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Signup Button */
+.btns-food button:first-child {
+  background-color: transparent;
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+}
+
+.btns-food button:first-child:hover {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+/* Signin Button */
+.btns-food button:last-child {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.btns-food button:last-child:hover {
+  background-color: #ff5252;
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-food {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-food-txt {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .btns-food {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-food-txt p {
+    font-size: 0.9rem;
+  }
+  
+  .btns-food button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+/* main page for food */
+.taste-and-rest-page h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.taste-and-rest-page h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+}
+
+/* Restaurant grid */
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* Restaurant card */
+.restaurant-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.restaurant-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.restaurant-details {
+  padding: 1.5rem;
+}
+
+.restaurant-details h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.restaurant-details p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.restaurant-details p b {
+  color: #333;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  color: #ff9529;
+  font-weight: 600;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .taste-and-rest-page {
+    padding: 1.5rem;
+  }
+  
+  .restaurant-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .taste-and-rest-page h2 {
+    font-size: 1.5rem;
+  }
+  
+  .restaurant-grid {
+    grid-template-columns: 1fr;
+  }
+}
+#direction-hotels{
+  width: 30%;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 600;
+  font-weight: 14px;
+  text-align: center;
+  height: 0.8cm;
+  background-color: #ff9a9e;
+}
+
+/* Filter Section Styles */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: flex-end;
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.filter-container label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #334155;
+  min-width: 180px;
+  flex-grow: 1;
+}
+
+.filter-input {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  background: white;
+  font-size: 0.875rem;
+  color: #334155;
+  transition: all 0.2s ease;
+  height: 40px;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+select.filter-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+
+input[type="number"].filter-input {
+  appearance: textfield;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filter-container {
+    gap: 0.75rem;
+  }
+  
+  .filter-container label {
+    min-width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .filter-container label {
+    min-width: calc(50% - 0.5rem);
+  }
+}

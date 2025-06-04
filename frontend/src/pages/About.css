@@ -1,0 +1,160 @@
+/* About.css */
+
+/* Base styles */
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+#about-to-home-btn{
+  width: 2cm;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  background-color: #2980b9;
+  color: white;
+  text-align: center;
+}
+.about-container h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.about-container h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background-color: #3498db;
+}
+
+.about-container h2 {
+  font-size: 1.8rem;
+  color: #2980b9;
+  margin: 2rem 0 1rem;
+  border-left: 4px solid #3498db;
+  padding-left: 0.8rem;
+}
+
+.about-container p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.about-container ul {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+.about-container li {
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+/* Feature list styling */
+.about-container ul:first-of-type li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.about-container ul:first-of-type li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #27ae60;
+  font-weight: bold;
+}
+
+/* Technology stack styling */
+.about-container ul:last-of-type li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.about-container ul:last-of-type li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: #3498db;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 1.5rem;
+  }
+  
+  .about-container h1 {
+    font-size: 2rem;
+  }
+  
+  .about-container h2 {
+    font-size: 1.5rem;
+  }
+  
+  .about-container p,
+  .about-container li {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-container {
+    padding: 1rem;
+  }
+  
+  .about-container h1 {
+    font-size: 1.8rem;
+  }
+  
+  .about-container h2 {
+    font-size: 1.3rem;
+  }
+  
+  .about-container ul {
+    padding-left: 1.5rem;
+  }
+}
+
+/* Animation effects */
+.about-container h1 {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.about-container h2 {
+  animation: slideIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Add some hover effects */
+.about-container li:hover {
+  color: #2c3e50;
+  transform: translateX(5px);
+  transition: all 0.3s ease;
+}

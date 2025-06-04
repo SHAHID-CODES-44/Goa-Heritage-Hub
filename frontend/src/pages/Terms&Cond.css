@@ -1,0 +1,177 @@
+/* Terms&Cond.css */
+
+/* Base Styles */
+.terms-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  line-height: 1.7;
+}
+
+/* Heading */
+.terms-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.terms-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, #3498db, #27ae60);
+  border-radius: 2px;
+}
+
+/* Content Container */
+.terms-content {
+  background-color: #fff;
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Section Headings */
+.terms-section-heading {
+  color: #2980b9;
+  font-size: 1.5rem;
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f1f1f1;
+  position: relative;
+}
+
+.terms-section-heading::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #3498db;
+}
+
+/* Paragraphs */
+.terms-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  text-align: justify;
+}
+
+/* Highlight Important Sections */
+.terms-content h2:nth-of-type(3), /* Emergency Help */
+.terms-content h2:nth-of-type(4) { /* No Liability */
+  color: #e74c3c;
+}
+
+.terms-content h2:nth-of-type(3)::before,
+.terms-content h2:nth-of-type(4)::before {
+  background-color: #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .terms-page {
+    padding: 1.5rem;
+  }
+  
+  .terms-heading {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .terms-content {
+    padding: 1.8rem;
+  }
+  
+  .terms-section-heading {
+    font-size: 1.3rem;
+  }
+  
+  .terms-content p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .terms-page {
+    padding: 1rem;
+  }
+  
+  .terms-heading {
+    font-size: 1.8rem;
+  }
+  
+  .terms-content {
+    padding: 1.2rem;
+  }
+  
+  .terms-section-heading {
+    font-size: 1.2rem;
+  }
+}
+
+/* Animation Effects */
+.terms-heading {
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.terms-content {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .terms-page {
+    padding: 0;
+    max-width: 100%;
+  }
+  
+  .terms-heading::after {
+    display: none;
+  }
+  
+  .terms-content {
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .terms-section-heading {
+    page-break-after: avoid;
+  }
+  
+  .terms-content p {
+    page-break-inside: avoid;
+  }
+}

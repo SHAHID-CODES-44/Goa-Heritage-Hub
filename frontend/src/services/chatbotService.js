@@ -1,0 +1,25 @@
+const API_BASE = 'http://localhost:5000/api/chatbot';
+
+export const getMajorOptions = async () => {
+  const res = await fetch(`${API_BASE}/major-options`);
+  if (!res.ok) throw new Error('Failed to fetch major options');
+  return await res.json();
+};
+
+export const getRegionsByOption = async (option_id) => {
+  const res = await fetch(`${API_BASE}/regions/${option_id}`);
+  if (!res.ok) throw new Error('Failed to fetch regions');
+  return await res.json();
+};
+
+export const getBeachTypesByRegion = async (region_id) => {
+  const res = await fetch(`${API_BASE}/beach-types/${region_id}`);
+  if (!res.ok) throw new Error('Failed to fetch beach types');
+  return await res.json();
+};
+
+export const getBeachesByType = async (type_id) => {
+  const res = await fetch(`${API_BASE}/beaches/${type_id}`);
+  if (!res.ok) throw new Error('Failed to fetch beaches');
+  return await res.json();
+};

@@ -1,0 +1,113 @@
+/* Facts.css */
+
+/* Base Container */
+#fact-container.fact-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading */
+#fact-heading.fact-heading {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+#fact-heading.fact-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #3498db;
+}
+
+/* Grid Layout */
+#fact-grid.fact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* Category Styling */
+.fact-category {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.fact-category-heading {
+  color: #2980b9;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+/* Fact List Styling */
+.fact-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.fact-item {
+  padding: 0.8rem 0;
+  border-bottom: 1px dashed #ddd;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.fact-item:last-child {
+  border-bottom: none;
+}
+
+/* Button Styling */
+.fact-button {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.8rem 2rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.fact-button:hover {
+  background-color: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #fact-grid.fact-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  #fact-heading.fact-heading {
+    font-size: 1.8rem;
+  }
+  
+  .fact-category-heading {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #fact-container.fact-container {
+    padding: 0 1rem;
+  }
+  
+  .fact-item {
+    font-size: 0.95rem;
+  }
+}

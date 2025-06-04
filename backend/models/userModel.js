@@ -5,7 +5,8 @@ const User = sequelize.define('User', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        // Remove unique here to avoid multiple index creation issues
+        // unique: true,
     },
     password: {
         type: DataTypes.STRING,

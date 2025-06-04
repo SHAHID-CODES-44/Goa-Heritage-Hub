@@ -39,13 +39,13 @@ const FeedbackPage = () => {
       <nav className="feedback-nav">
         <div className="nav-links">
           <a href="/">Home</a>
-          <a href="/AboutPage">About</a>
-          <a href="/ContackPage">Contact</a>
-          <a href="/Testimonial">Testimonial</a>
+          <a href="/About">About</a>
+          <a href="/Contact">Contact</a>
+          <a href="/FAQ">Testimonial</a>
         </div>
         <div className="auth-links">
-          <Link to="/signup" className="signup-btn">SignUp</Link>
-          <Link to="/login" className="login-btn">Login</Link>
+          <Link to="/SignupIn" className="signup-btn">SignUp</Link>
+          <Link to="/SignupIn" className="login-btn">Login</Link>
         </div>
       </nav>
 

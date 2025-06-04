@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // ✅ Added useNavigate
 import signupimg from '../uploads/Signin/imagesignup.png';
 import './SignupIn.css';
 
@@ -11,6 +11,8 @@ const SignupIn = () => {
     password: "",
     phone: "",
   });
+
+  const navigate = useNavigate(); // ✅ Initialize navigate
 
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -25,6 +27,7 @@ const SignupIn = () => {
     try {
       const response = await axios.post(url, formData);
       alert(response.data.message);
+      navigate('/'); // ✅ Redirect on success
     } catch (error) {
       alert(error.response?.data?.message || "Something went wrong");
     }

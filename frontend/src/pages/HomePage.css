@@ -68,7 +68,7 @@ button {
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                 url('../uploads/Homepage/Homepage.png') no-repeat center center/cover;
     color: white;
     min-height: 100vh;
@@ -78,13 +78,14 @@ button {
 }
 
 .main-container {
-    width: 90%;
+    width: 99%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 0px 0;
 }
 
 .navbar {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -92,13 +93,13 @@ button {
 }
 
 #logo {
-    height: 50px;
-    width: auto;
+    height: 3cm;
+    width: 1.5in;
 }
 
 .navtxt {
     display: flex;
-    gap: 30px;
+    gap: 50px;
 }
 
 .navtxt p {
@@ -365,7 +366,7 @@ button {
 }
 
 .footer-links a {
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     transition: color 0.3s;
 }
 
@@ -466,4 +467,101 @@ button {
         width: 100%;
         justify-content: center;
     }
+}
+
+/* weather sections............. */
+
+/* Weather Widget Styles */
+.weather-widget {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin: 1rem auto;
+  max-width: 3in; /* 3 inches max width */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.weather-widget h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.weather-widget p {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+  color: #34495e;
+}
+
+/* Temperature Specific Styles */
+.weather-widget.cold {
+  background: linear-gradient(135deg, #e0f7fa 0%, #80deea 100%);
+  color: #0277bd;
+}
+
+.weather-widget.cold h2 {
+  color: #01579b;
+}
+
+.weather-widget.moderate {
+  background: linear-gradient(135deg, #e8f5e9 0%, #a5d6a7 100%);
+  color: #2e7d32;
+}
+
+.weather-widget.moderate h2 {
+  color: #1b5e20;
+}
+
+.weather-widget.hot {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffcc80 100%);
+  color: #e65100;
+}
+
+.weather-widget.hot h2 {
+  color: #bf360c;
+}
+
+/* Weather Condition Icons */
+.weather-widget::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 0.5rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.weather-widget.cold::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%230277bd"><path d="M12 2a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 4a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V7a1 1 0 0 1 1-1zm-7 3a1 1 0 1 0 0 2h1a1 1 0 1 0 0-2H5zm14 0a1 1 0 1 0 0 2h1a1 1 0 1 0 0-2h-1zm-9 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zm3 5a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg>');
+}
+
+.weather-widget.moderate::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232e7d32"><path d="M6 12a6 6 0 1 1 12 0 6 6 0 0 1-12 0zm6-4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 0a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V1a1 1 0 0 1 1-1zm0 20a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1zM1 11a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H1zm20 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2z"/></svg>');
+}
+
+.weather-widget.hot::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e65100"><path d="M12 0a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V1a1 1 0 0 1 1-1zm0 4a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1zm-7 3a1 1 0 1 0 0 2h1a1 1 0 1 0 0-2H5zm14 0a1 1 0 1 0 0 2h1a1 1 0 1 0 0-2h-1zm-9 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zm3 5a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg>');
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .weather-widget {
+    padding: 1rem;
+    max-width: 100%;
+  }
+}
+#weather-btn {
+    width: 80%;
+    height: 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(63, 170, 63);
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
 }

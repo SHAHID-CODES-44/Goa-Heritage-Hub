@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
-import logo from '../uploads/Homepage/Homepage.png';
+import logo from '../uploads/Homepage/logo1.png';
 import image1 from '../uploads/Homepage/image-1.png';
 import image2 from '../uploads/Homepage/image-2.png';
 import image3 from '../uploads/Homepage/image-3.png';
@@ -25,7 +25,26 @@ const HomePage = () => {
         // Handle form submission
         console.log({ email, rememberMe });
     };
+ const [weather, setWeather] = useState(null);
+  const [error, setError] = useState(null);
 
+  const apiKey = 'e040d6c3ce9ac8cb37a7afc18884967c'; 
+  const city = 'Goa';
+
+  useEffect(() => {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch weather. May be internet issue.');
+        }
+        return res.json();
+      })
+      .then(data => setWeather(data))
+      .catch(err => setError(err.message));
+  }, []);
+
+  if (error) return <div>Error: {error}</div>;
+  if (!weather) return <div>Loading...</div>;
     return (
         <div className="home-container">
             {/* Hero Section */}
@@ -37,8 +56,13 @@ const HomePage = () => {
                             <p>Home</p>
                             <p>Adventure</p>
                             <a href="/Beach"><p>Beaches</p></a>
-                            <p>WildLife</p>
+                            <a href="/Wildlife"><p>WildLife</p></a>
+                            <a href="/Food">Taste</a>
                             <a href="/Feedback"><p>Feedback</p></a>
+                            <a href="/Post">Posts</a>
+                           {/* <a href="/WeatherApp">See Weather</a>
+                            <a href="/FAQ">FAQs</a>
+                            <a href="/About">About-Us</a>*/}
                         </div>
                         <div className="register">
                             <a href="/SignupIn">
@@ -53,8 +77,8 @@ const HomePage = () => {
                         <h1>TRAVEL</h1>
                         <h2>Explore The beauty of Goa</h2>
                         <div className="action-buttons">
-                            <button className="primary-btn">Explore More</button>
-                            <button className="outline-btn">Ask Robot</button>
+                             <a href="/Map"><button className="primary-btn">Visit Map</button></a>
+                            <a href="/Chatbot"><button className="outline-btn">Ask Robot</button></a>
                         </div>
                     </div>
 
@@ -74,7 +98,15 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-
+ <div className={`weather-widget ${
+  weather.main.temp > 30 ? 'hot' : 
+  weather.main.temp > 18 ? 'moderate' : 'cold'
+}`}>
+  <h2>Weather in {weather.name}</h2>
+  <p>Temperature: {weather.main.temp} °C</p>
+  <p>Condition: {weather.weather[0].description}</p>
+  <a href="/WeatherApp"><button id="weather-btn">See Full Details</button></a>
+</div>
             {/* Featured Images Section */}
             <div className="featured-section">
                 <h2>Popular Destinations</h2>
@@ -108,7 +140,8 @@ const HomePage = () => {
                     <img src={image11} alt="Goa Gallery 8" />
                     <img src={image12} alt="Goa Gallery 9" />
                 </div>
-                <button className="primary-btn gallery-btn">Click to See More</button>
+                <a href="/Food"><button className="primary-btn gallery-btn">Restuarants in Goa</button></a>
+                <a href="/Facts"><button className="primary-btn gallery-btn">Facts About Goa</button></a>
             </div>
 
             {/* Newsletter Section */}
@@ -143,7 +176,7 @@ const HomePage = () => {
                 <h2>Need help planning your trip?</h2>
                 <p>Our virtual assistant can help you create the perfect itinerary</p>
                 <button className="primary-btn">Ask Robot</button>
-                <button className="outline-btn">Explore More</button>
+                <a href="/beach"><button className="outline-btn">Explore More</button></a>
             </div>
 
             {/* Footer */}
@@ -156,18 +189,21 @@ const HomePage = () => {
                     <div className="footer-links">
                         <h3>Quick Links</h3>
                         <a href="/">Home</a>
-                        <a href="/">About</a>
-                        <a href="/">Destinations</a>
-                        <a href="/">Contact</a>
+                        <a href="/FAQ">FAQs</a>
+                        <a href="/Transport">Transport in Goa</a>
+                        <a href="/About">About</a>
+                        <a href="/Beach">Destinations</a>
+                        <a href="/Contact">Contact</a>
+                        <a href="/Terms">Terms & Conditions</a>
                     </div>
                     <div className="footer-contact">
                         <h3>Contact Us</h3>
-                        <p>info@goatravel.com</p>
-                        <p>+91 9876543210</p>
+                        <p>travel-goa@gmail.com</p>
+                        <p>+91 demo number....</p>
                     </div>
                 </div>
                 <div className="footer-bottom">
-                    <p>&copy; {new Date().getFullYear()} Goa Travel. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Goa Travel. @official site</p>
                 </div>
             </footer>
         </div>
