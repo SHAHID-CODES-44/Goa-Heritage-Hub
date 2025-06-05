@@ -1,0 +1,270 @@
+
+
+        /* Base Styles */
+        .event-page {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          font-family: Arial, sans-serif;
+        }
+
+        .event-main {
+          flex: 1;
+          padding: 2rem;
+          max-width: 1200px;
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        /* Navbar Styles */
+        .event-navbar {
+          background-color: #2c3e50;
+          padding: 1rem 0;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-navbar-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 2rem;
+          flex-wrap: wrap;
+        }
+
+        .event-navbar-brand {
+          display: flex;
+          align-items: center;
+        }
+
+        .event-navbar-logo {
+          color: white;
+          font-size: 1.5rem;
+          font-weight: bold;
+          text-decoration: none;
+          margin-right: 2rem;
+        }
+
+        .event-search {
+          display: flex;
+          flex: 1;
+          max-width: 500px;
+          min-width: 200px;
+          margin: 0 1rem;
+        }
+
+        .event-search-input {
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 4px 0 0 4px;
+          width: 100%;
+          font-size: 1rem;
+        }
+
+        .event-search-button {
+          padding: 0 1rem;
+          background-color: #3498db;
+          color: white;
+          border: none;
+          border-radius: 0 4px 4px 0;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+        }
+
+        .event-search-button:hover {
+          background-color: #2980b9;
+        }
+
+        .event-navbar-links {
+          display: flex;
+          gap: 1.5rem;
+        }
+
+        .event-navbar-link {
+          color: white;
+          text-decoration: none;
+          font-size: 1rem;
+          transition: color 0.3s;
+        }
+
+        .event-navbar-link:hover {
+          color: #3498db;
+        }
+/* Add these styles to your existing EventPage.css */
+
+.event-description {
+  position: relative;
+  margin-bottom: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.event-toggle-description {
+  background: none;
+  border: none;
+  color: #3498db;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 5px;
+  font-size: inherit;
+}
+
+.event-toggle-description:hover {
+  text-decoration: underline;
+}
+
+.event-toggle-description:focus {
+  outline: none;
+}
+        /* Event Grid Styles */
+        .event-heading {
+          text-align: center;
+          margin-bottom: 2rem;
+          color: #2c3e50;
+          font-size: 2rem;
+        }
+
+        .event-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .event-card {
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          overflow: hidden;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-image {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+        }
+
+        .event-content {
+          padding: 1rem;
+        }
+
+        .event-description {
+          margin-bottom: 1rem;
+          color: #555;
+          line-height: 1.5;
+        }
+
+        .event-button {
+          display: inline-block;
+          padding: 0.5rem 1rem;
+          background-color: #3498db;
+          color: white;
+          border-radius: 4px;
+          text-decoration: none;
+          transition: background-color 0.3s;
+        }
+
+        .event-button:hover {
+          background-color: #2980b9;
+        }
+
+        /* Loading and Error States */
+        .event-loading, .event-error {
+          text-align: center;
+          padding: 2rem;
+          font-size: 1.2rem;
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .event-error {
+          color: #e74c3c;
+        }
+
+        /* Footer Styles */
+        .event-footer {
+          background-color: #2c3e50;
+          color: white;
+          padding: 1.5rem 0;
+          margin-top: 2rem;
+        }
+
+        .event-footer-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 2rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .event-footer-text {
+          margin: 0;
+          font-size: 0.9rem;
+        }
+
+        .event-footer-links {
+          display: flex;
+          gap: 1.5rem;
+        }
+
+        .event-footer-link {
+          color: white;
+          text-decoration: none;
+          font-size: 0.9rem;
+        }
+
+        .event-footer-link:hover {
+          text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+          .event-navbar-container {
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+          }
+
+          .event-search {
+            width: 100%;
+            margin: 1rem 0;
+          }
+
+          .event-navbar-links {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .event-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          }
+        }
+
+        @media (max-width: 480px) {
+          .event-main {
+            padding: 1rem;
+          }
+
+          .event-heading {
+            font-size: 1.5rem;
+          }
+
+          .event-footer-container {
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: center;
+          }
+
+          .event-footer-links {
+            gap: 1rem;
+          }
+        }
