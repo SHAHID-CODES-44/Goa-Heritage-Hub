@@ -16,6 +16,9 @@ import Facts from './pages/FactsPage';
 import Transport from './pages/TransportPage';
 import Chabot from './pages/ChatbotPage';
 import Map from './pages/MapsPage';
+import Event from './pages/EventPage';
+
+
 function App() {
   return (
     <Routes>
@@ -35,6 +38,7 @@ function App() {
       <Route path='/Transport' element={<Transport/>}/>
       <Route path='/Chatbot' element={<Chabot/>} />
       <Route path='/Map' element={<Map/>}/>
+      <Route path='/Event' element={<Event/>} /> 
     </Routes>
   );
 }

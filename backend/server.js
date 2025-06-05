@@ -14,6 +14,8 @@ import foodRoutes from './routes/foodRoutes.js';
 import wildlifeRoutes from './routes/wildlifeRoutes.js';
 import beachRoutes from './routes/beachRoutes.js';
 import chatbotRoutes from './routes/chatbotRoutes.js';  // <-- chatbot related routes
+import eventRoutes from './routes/eventRoutes.js';
+
 
 dotenv.config();
 
@@ -41,6 +43,7 @@ app.use('/api/faqs', faqRoutes);
 app.use('/api/food', foodRoutes);
 app.use('/api/wildlife', wildlifeRoutes);
 app.use('/api/beaches', beachRoutes);
+app.use('/api/events', eventRoutes);
 
 // Sync DB and start server
 sequelize.sync({ alter: true })

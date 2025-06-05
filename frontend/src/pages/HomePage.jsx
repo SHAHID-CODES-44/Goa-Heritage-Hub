@@ -55,6 +55,7 @@ const HomePage = () => {
                         <div className="navtxt">
                             <p>Home</p>
                             <p>Adventure</p>
+                            <a href="/Event"><p>Events</p></a>
                             <a href="/Beach"><p>Beaches</p></a>
                             <a href="/Wildlife"><p>WildLife</p></a>
                             <a href="/Food">Taste</a>

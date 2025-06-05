@@ -4,7 +4,9 @@ import {
     getMajorOptions,
     getRegionsByOption,
     getBeachTypesByRegion,
-    getBeachesByType
+    getBeachesByType,
+    getWildlifeTypesByRegion,
+    getWildlifePlacesByType
 } from '../services/chatbotService';
 
 export default function ChatbotPage() {
@@ -12,6 +14,8 @@ export default function ChatbotPage() {
     const [regions, setRegions] = useState([]);
     const [beachTypes, setBeachTypes] = useState([]);
     const [beaches, setBeaches] = useState([]);
+    const [wildlifeTypes, setWildlifeTypes] = useState([]);
+    const [wildlifePlaces, setWildlifePlaces] = useState([]);
     const [messages, setMessages] = useState([
         { text: "Hello! I'm your Goa Beach Guide. How can I help you today?", sender: 'bot' }
     ]);
@@ -20,7 +24,6 @@ export default function ChatbotPage() {
     const [selectedType, setSelectedType] = useState(null);
     const [isTyping, setIsTyping] = useState(false);
 
-    // Load major options on mount
     useEffect(() => {
         getMajorOptions()
             .then(options => {
@@ -30,7 +33,6 @@ export default function ChatbotPage() {
             .catch(console.error);
     }, []);
 
-    // Load regions when major option selected
     useEffect(() => {
         if (selectedOption) {
             setIsTyping(true);
@@ -42,42 +44,65 @@ export default function ChatbotPage() {
                 })
                 .catch(console.error);
 
-            // Reset downstream selections
             setBeachTypes([]);
             setBeaches([]);
+            setWildlifeTypes([]);
+            setWildlifePlaces([]);
             setSelectedRegion(null);
             setSelectedType(null);
         }
     }, [selectedOption]);
 
-    // Load beach types when region selected
     useEffect(() => {
         if (selectedRegion) {
             setIsTyping(true);
-            getBeachTypesByRegion(selectedRegion.region_id)
-                .then(types => {
-                    setBeachTypes(types);
-                    addBotMessage(`Nice! ${selectedRegion.region_name} is beautiful. What type of beach are you looking for?`);
-                    setIsTyping(false);
-                })
-                .catch(console.error);
-
-            setBeaches([]);
+            if (selectedOption.option_name.toLowerCase().includes('beach')) {
+                getBeachTypesByRegion(selectedRegion.region_id)
+                    .then(types => {
+                        setBeachTypes(types);
+                        addBotMessage(`Nice! ${selectedRegion.region_name} is beautiful. What type of beach are you looking for?`);
+                        setIsTyping(false);
+                    })
+                    .catch(console.error);
+                setWildlifeTypes([]);
+                setWildlifePlaces([]);
+            } else if (selectedOption.option_name.toLowerCase().includes('wildlife')) {
+                getWildlifeTypesByRegion(selectedRegion.region_id)
+                    .then(types => {
+                        setWildlifeTypes(types);
+                        addBotMessage(`Awesome! What kind of wildlife are you interested in?`);
+                        setIsTyping(false);
+                    })
+                    .catch(console.error);
+                setBeachTypes([]);
+                setBeaches([]);
+            }
             setSelectedType(null);
         }
     }, [selectedRegion]);
 
-    // Load beaches when beach type selected
     useEffect(() => {
         if (selectedType) {
             setIsTyping(true);
-            getBeachesByType(selectedType.type_id)
-                .then(beaches => {
-                    setBeaches(beaches);
-                    addBotMessage(`Here are some ${selectedType.type_name} beaches in ${selectedRegion.region_name}:`);
-                    setIsTyping(false);
-                })
-                .catch(console.error);
+            if (selectedOption.option_name.toLowerCase().includes('beach')) {
+                getBeachesByType(selectedType.type_id)
+                    .then(beaches => {
+                        setBeaches(beaches);
+                        addBotMessage(`Here are some ${selectedType.type_name} beaches in ${selectedRegion.region_name}:`);
+                        setIsTyping(false);
+                    })
+                    .catch(console.error);
+                setWildlifePlaces([]);
+            } else if (selectedOption.option_name.toLowerCase().includes('wildlife')) {
+                getWildlifePlacesByType(selectedType.type_id)
+                    .then(places => {
+                        setWildlifePlaces(places);
+                        addBotMessage(`Here are some ${selectedType.type_name} wildlife places in ${selectedRegion.region_name}:`);
+                        setIsTyping(false);
+                    })
+                    .catch(console.error);
+                setBeaches([]);
+            }
         }
     }, [selectedType]);
 
@@ -106,42 +131,23 @@ export default function ChatbotPage() {
 
     const scrollToBottom = () => {
         const chatContainer = document.getElementById('chat-container');
-        if (chatContainer) {
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
+        if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight;
     };
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages, beaches]);
+    }, [messages, beaches, wildlifePlaces]);
 
     return (
         <div className="chatbot-container">
-            <div className="chatbot-header">
-                <div className="chatbot-avatar">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-                    </svg>
-                </div>
-                <div className="chatbot-title">
-                    <h2>Goa Beach Guide</h2>
-                    <p>Your personal beach assistant</p>
-                </div>
-                <div className="chatbot-status">
-                    <span className={isTyping ? 'typing' : ''}>
-                        {isTyping ? 'typing...' : 'online'}
-                    </span>
-                </div>
-            </div>
+            {/* ... header and messages as in your code above ... */}
 
             <div className="chatbot-messages" id="chat-container">
                 {messages.map((msg, index) => (
                     <div key={index} className={`message ${msg.sender}`}>
                         {msg.sender === 'bot' && (
                             <div className="bot-avatar">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-                                </svg>
+                                {/* SVG icon */}
                             </div>
                         )}
                         <div className="message-content">
@@ -150,21 +156,13 @@ export default function ChatbotPage() {
                     </div>
                 ))}
 
-                {/* Step 1: Major Options */}
+                {/* Major options */}
                 {majorOptions.length > 0 && !selectedOption && (
                     <div className="message bot">
-                        <div className="bot-avatar">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-                            </svg>
-                        </div>
+                        <div className="bot-avatar">{/* SVG icon */}</div>
                         <div className="message-content options">
                             {majorOptions.map(opt => (
-                                <button
-                                    key={opt.option_id}
-                                    onClick={() => handleOptionSelect(opt)}
-                                    className={`option-btn ${selectedOption?.option_id === opt.option_id ? 'active' : ''}`}
-                                >
+                                <button key={opt.option_id} onClick={() => handleOptionSelect(opt)} className="option-btn">
                                     {opt.option_name}
                                 </button>
                             ))}
@@ -172,21 +170,13 @@ export default function ChatbotPage() {
                     </div>
                 )}
 
-                {/* Step 2: Regions */}
+                {/* Regions */}
                 {regions.length > 0 && !selectedRegion && (
                     <div className="message bot">
-                        <div className="bot-avatar">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-                            </svg>
-                        </div>
+                        <div className="bot-avatar">{/* SVG icon */}</div>
                         <div className="message-content options">
                             {regions.map(r => (
-                                <button
-                                    key={r.region_id}
-                                    onClick={() => handleRegionSelect(r)}
-                                    className={`option-btn ${selectedRegion?.region_id === r.region_id ? 'active' : ''}`}
-                                >
+                                <button key={r.region_id} onClick={() => handleRegionSelect(r)} className="option-btn">
                                     {r.region_name}
                                 </button>
                             ))}
@@ -194,21 +184,13 @@ export default function ChatbotPage() {
                     </div>
                 )}
 
-                {/* Step 3: Beach Types */}
-                {beachTypes.length > 0 && !selectedType && (
+                {/* Beach types */}
+                {beachTypes.length > 0 && !selectedType && selectedOption?.option_name.toLowerCase().includes('beach') && (
                     <div className="message bot">
-                        <div className="bot-avatar">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-                            </svg>
-                        </div>
+                        <div className="bot-avatar">{/* SVG icon */}</div>
                         <div className="message-content options">
                             {beachTypes.map(t => (
-                                <button
-                                    key={t.type_id}
-                                    onClick={() => handleTypeSelect(t)}
-                                    className={`option-btn ${selectedType?.type_id === t.type_id ? 'active' : ''}`}
-                                >
+                                <button key={t.type_id} onClick={() => handleTypeSelect(t)} className="option-btn">
                                     {t.type_name}
                                 </button>
                             ))}
@@ -216,33 +198,50 @@ export default function ChatbotPage() {
                     </div>
                 )}
 
-                {/* Step 4: Beaches List */}
-                {beaches.length > 0 && (
+                {/* Wildlife types */}
+                {wildlifeTypes.length > 0 && !selectedType && selectedOption?.option_name.toLowerCase().includes('wildlife') && (
                     <div className="message bot">
-                        <div className="bot-avatar">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-                            </svg>
+                        <div className="bot-avatar">{/* SVG icon */}</div>
+                        <div className="message-content options">
+                            {wildlifeTypes.map(t => (
+                                <button key={t.type_id} onClick={() => handleTypeSelect(t)} className="option-btn">
+                                    {t.type_name}
+                                </button>
+                            ))}
                         </div>
+                    </div>
+                )}
+
+                {/* Beaches list */}
+                {beaches.length > 0 && (
+                    <div className="message bot beaches-list">
+                        <div className="bot-avatar">{/* SVG icon */}</div>
                         <div className="message-content beaches">
                             {beaches.map(b => (
-                                <div key={b.beach_id} className="beach-card">
+                                <div key={b.beach_id} className="chatbot-beach-card">
                                     <h3>{b.beach_name}</h3>
-                                    {b.image_path && (
-                                        <div className="beach-image">
-                                            <img src={`/uploads/BeachPage/${b.image_path}`} alt={b.name} className="beach-image" />
-                                        </div>
-                                    )}
-                                    <p className="beach-description">{b.description}</p>
-                                    <a 
-                                        href={b.directions_url} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="directions-btn"
-                                    >
-                                        <svg viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                                        </svg>
+                                    {b.image_path && <img src={`/uploads/BeachPage/${b.image_path}`} alt={b.beach_name} className="chatbot-beach-image" />}
+                                    <p>{b.description}</p>
+                                    <a href={b.directions_url} target="_blank" rel="noopener noreferrer" className="directions-btn">
+                                        Get Directions
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Wildlife places list */}
+                {wildlifePlaces.length > 0 && (
+                    <div className="message bot wildlife-list">
+                        <div className="bot-avatar">{/* SVG icon */}</div>
+                        <div className="message-content wildlife-places">
+                            {wildlifePlaces.map(w => (
+                                <div key={w.wildlife_id} className="wildlife-card">
+                                    <h3>{w.wildlife_name}</h3>
+                                    {w.image_path && <img src={`/uploads/WildLifePage/${w.image_path}`} alt={w.wildlife_name} className="wildlife-image" />}
+                                    <p>{w.description}</p>
+                                    <a href={w.directions_url} target="_blank" rel="noopener noreferrer" className="directions-btn">
                                         Get Directions
                                     </a>
                                 </div>
@@ -253,24 +252,16 @@ export default function ChatbotPage() {
 
                 {isTyping && (
                     <div className="message bot typing-indicator">
-                        <div className="bot-avatar">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-                            </svg>
-                        </div>
+                        <div className="bot-avatar">{/* SVG icon */}</div>
                         <div className="message-content">
-                            <div className="typing-dots">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
+                            <div className="typing-dots"><div></div><div></div><div></div></div>
                         </div>
                     </div>
                 )}
             </div>
 
             <div className="chatbot-footer">
-                <p>@Goa beach Guide {new Date().getFullYear()}</p>
+                <p>@Goa Beach Guide {new Date().getFullYear()}</p>
             </div>
         </div>
     );

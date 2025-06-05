@@ -84,3 +84,55 @@ export const getBeachesByTypeId = async (type_id) => {
     where: { type_id },
   });
 };
+
+// Define Wildlife Type model
+const WildlifeType = db.define('chatbot_wildlife_types', {
+  type_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  type_name: DataTypes.STRING,
+  region_id: DataTypes.INTEGER,
+}, {
+  timestamps: false,
+  tableName: 'chatbot_wildlife_types',
+});
+
+// Define Wildlife Place model
+const WildlifePlace = db.define('chatbot_wildlife_places', {
+  place_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  place_name: DataTypes.STRING,
+  description: DataTypes.TEXT,
+  image_path: DataTypes.STRING,        // Use same naming convention
+  directions_url: DataTypes.STRING,
+  type_id: DataTypes.INTEGER,
+}, {
+  timestamps: false,
+  tableName: 'chatbot_wildlife_places',
+});
+
+// Existing exports for beaches remain unchanged...
+
+// Fetch wildlife types by region ID
+export const getWildlifeTypesByRegionId = async (region_id) => {
+  return await WildlifeType.findAll({ where: { region_id } });
+};
+
+// Fetch wildlife places by type ID
+export const getWildlifePlacesByTypeId = async (type_id) => {
+  return await WildlifePlace.findAll({
+    attributes: [
+      'place_id',
+      'place_name',
+      'description',
+      'image_path',
+      'directions_url'
+    ],
+    where: { type_id },
+  });
+};
