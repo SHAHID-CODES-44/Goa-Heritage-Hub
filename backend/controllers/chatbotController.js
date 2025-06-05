@@ -1,6 +1,6 @@
-import * as chatbotModel from '../models/chatbotModel.js';
+import * as chatbotModel from '../models/chatbotModel.js';  // Make sure filename matches your model file
 
-// Get all major options (e.g., Beaches, Wildlife, etc.)
+// Get all major options (e.g., Beaches, Wildlife, Adventures, etc.)
 export const getMajorOptions = async (req, res) => {
   try {
     const options = await chatbotModel.getMajorOptions();
@@ -65,6 +65,28 @@ export const getWildlifePlacesByType = async (req, res) => {
     res.json(places);
   } catch (error) {
     console.error('Error fetching wildlife places:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// ADVENTURE-SPECIFIC ENDPOINTS (NEW)
+export const getAdventureTypes = async (req, res) => {
+  try {
+    const types = await chatbotModel.getAdventureTypes();
+    res.json(types);
+  } catch (error) {
+    console.error('Error fetching adventure types:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const getAdventurePlacesByType = async (req, res) => {
+  try {
+    const type_id = req.params.type_id;
+    const places = await chatbotModel.getAdventurePlacesByTypeId(type_id);
+    res.json(places);
+  } catch (error) {
+    console.error('Error fetching adventure places:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };

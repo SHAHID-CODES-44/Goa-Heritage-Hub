@@ -418,3 +418,99 @@ width: 70%;
   border-top: 1px solid #eee;
   margin-top: auto;
 }
+
+/* Adventure List Container */
+.adventure-list {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Adventure Places Grid */
+.adventure-places {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 15px;
+}
+
+/* Adventure Card Styling */
+.adventure-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.adventure-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Content */
+.adventure-card h3 {
+    margin: 0;
+    padding: 15px 20px;
+    font-size: 1.3rem;
+    color: #2c3e50;
+    border-bottom: 1px solid #eee;
+}
+
+.adventure-card p {
+    padding: 15px 20px;
+    margin: 0;
+    color: #555;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+/* Image Styling */
+.adventure-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Directions Button */
+.directions-btn {
+    display: inline-block;
+    margin: 0 20px 20px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.directions-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .adventure-places {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .adventure-places {
+        grid-template-columns: 1fr;
+    }
+    
+    .adventure-card {
+        margin-bottom: 20px;
+    }
+    
+    .adventure-image {
+        height: 180px;
+    }
+}

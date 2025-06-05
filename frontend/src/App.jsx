@@ -17,6 +17,7 @@ import Transport from './pages/TransportPage';
 import Chabot from './pages/ChatbotPage';
 import Map from './pages/MapsPage';
 import Event from './pages/EventPage';
+import Adventure from './pages/AdventuresPage';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       <Route path='/Chatbot' element={<Chabot/>} />
       <Route path='/Map' element={<Map/>}/>
       <Route path='/Event' element={<Event/>} /> 
+      <Route path='/Adventure' element={<Adventure/>} />
     </Routes>
   );
 }

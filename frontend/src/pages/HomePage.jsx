@@ -54,7 +54,7 @@ const HomePage = () => {
                         <img src={logo} alt="Goa Travel Logo" id="logo" />
                         <div className="navtxt">
                             <p>Home</p>
-                            <p>Adventure</p>
+                            <a href="/Adventure"><p>Adventure</p></a>
                             <a href="/Event"><p>Events</p></a>
                             <a href="/Beach"><p>Beaches</p></a>
                             <a href="/Wildlife"><p>WildLife</p></a>

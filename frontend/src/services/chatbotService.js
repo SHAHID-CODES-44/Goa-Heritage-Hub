@@ -24,7 +24,7 @@ export const getBeachesByType = async (type_id) => {
   return await res.json();
 };
 
-// wildlife .............
+// Wildlife endpoints
 export const getWildlifeTypesByRegion = async (region_id) => {
   const res = await fetch(`${API_BASE}/wildlife-types/${region_id}`);
   if (!res.ok) throw new Error('Failed to fetch wildlife types');
@@ -34,5 +34,18 @@ export const getWildlifeTypesByRegion = async (region_id) => {
 export const getWildlifePlacesByType = async (type_id) => {
   const res = await fetch(`${API_BASE}/wildlife-places/${type_id}`);
   if (!res.ok) throw new Error('Failed to fetch wildlife places');
+  return await res.json();
+};
+
+// Adventure endpoints (corrected)
+export const getAdventureTypes = async () => {
+  const res = await fetch(`${API_BASE}/adventure-types`);
+  if (!res.ok) throw new Error('Failed to fetch adventure types');
+  return await res.json();
+};
+
+export const getAdventurePlacesByType = async (type_id) => {
+  const res = await fetch(`${API_BASE}/adventure-places/${type_id}`);
+  if (!res.ok) throw new Error('Failed to fetch adventure places');
   return await res.json();
 };
