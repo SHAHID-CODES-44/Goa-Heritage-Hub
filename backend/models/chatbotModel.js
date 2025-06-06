@@ -120,6 +120,37 @@ const AdventurePlace = db.define('chatbot_adventure_places', {
   tableName: 'chatbot_adventure_places',
 });
 
+// StayEatsType model
+const StayEatsType = db.define('chatbot_stayeats_types', {
+  type_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  type_name: DataTypes.STRING,
+  region_id: DataTypes.INTEGER, // if region relevant
+}, {
+  timestamps: false,
+  tableName: 'chatbot_stayeats_types',
+});
+
+// StayEatsPlace model
+const StayEatsPlace = db.define('chatbot_stayeats_places', {
+  place_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  place_name: DataTypes.STRING,
+  description: DataTypes.TEXT,
+  image_path: DataTypes.STRING,
+  directions_url: DataTypes.STRING,
+  type_id: DataTypes.INTEGER,
+}, {
+  timestamps: false,
+  tableName: 'chatbot_stayeats_places',
+});
+
 // Export fetch functions
 
 // Major Options
@@ -166,6 +197,19 @@ export const getAdventureTypes = async () => {
 // Adventure Places by type ID
 export const getAdventurePlacesByTypeId = async (type_id) => {
   return await AdventurePlace.findAll({
+    attributes: ['place_id', 'place_name', 'description', 'image_path', 'directions_url'],
+    where: { type_id },
+  });
+};
+
+// Export functions for StayEats
+
+export const getStayEatsTypesByRegionId = async (region_id) => {
+  return await StayEatsType.findAll({ where: { region_id } });
+};
+
+export const getStayEatsPlacesByTypeId = async (type_id) => {
+  return await StayEatsPlace.findAll({
     attributes: ['place_id', 'place_name', 'description', 'image_path', 'directions_url'],
     where: { type_id },
   });

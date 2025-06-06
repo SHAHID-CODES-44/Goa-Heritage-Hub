@@ -21,4 +21,8 @@ router.get('/wildlife-places/:type_id', chatbotController.getWildlifePlacesByTyp
 router.get('/adventure-types', chatbotController.getAdventureTypes);
 router.get('/adventure-places/:type_id', chatbotController.getAdventurePlacesByType);
 
+// StayEats-specific routes (NEW)
+router.get('/stayeats-types/:region_id', chatbotController.getStayEatsTypesByRegion);
+router.get('/stayeats-places/:type_id', chatbotController.getStayEatsPlacesByType);
+
 export default router;

@@ -1,5 +1,6 @@
 /* WeatherPage.css */
 
+/* ======= Base Container ======= */
 .weather-container {
   background-size: cover;
   background-position: center;
@@ -11,8 +12,10 @@
   position: relative;
   color: white;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  transition: background-image 0.5s ease, background-color 0.5s ease;
 }
 
+/* ======= Content Card ======= */
 .weather-content {
   max-width: 800px;
   margin: 0 auto;
@@ -24,6 +27,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* ======= Header ======= */
 .weather-header {
   margin-bottom: 2rem;
   text-align: center;
@@ -34,6 +38,7 @@
   margin-bottom: 0.5rem;
 }
 
+/* ======= Weather Details ======= */
 .weather-details {
   display: flex;
   justify-content: space-around;
@@ -63,6 +68,7 @@
 .condition {
   font-size: 1.5rem;
   margin-top: 0.5rem;
+  text-transform: capitalize;
 }
 
 .weather-icon {
@@ -70,6 +76,7 @@
   height: 120px;
 }
 
+/* ======= Stats ======= */
 .weather-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -86,9 +93,10 @@
 .stat-value {
   font-size: 1.5rem;
   font-weight: 600;
-  margin: 0.5rem 0 0;
+  margin-top: 0.5rem;
 }
 
+/* ======= Back Button ======= */
 .back-button {
   position: absolute;
   top: 2rem;
@@ -104,7 +112,6 @@
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
 }
 
@@ -119,55 +126,24 @@
   fill: currentColor;
 }
 
-/* Weather type specific styles */
+/* ======= Weather-Specific Backgrounds ======= */
 .cold-weather {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../uploads/weather/cold-bg.jpg');
+  background-image: linear-gradient(rgba(25, 47, 96, 0.5), rgba(25, 47, 96, 0.7)), url('../uploads/weather/cold-bg.jpg');
 }
 
 .rainy-weather {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../uploads/weather/rainy-bg.jpg');
+  background-image: linear-gradient(rgba(58, 58, 58, 0.5), rgba(30, 30, 30, 0.8)), url('../uploads/weather/rainy-bg.jpg');
 }
 
 .cloudy-weather {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../uploads/weather/cloudy-bg.jpg');
+  background-image: linear-gradient(rgba(108, 122, 137, 0.5), rgba(77, 90, 99, 0.8)), url('../uploads/weather/cloudy-bg.jpg');
 }
 
 .sunny-weather {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../uploads/weather/sunny-bg.jpg');
+  background-image: linear-gradient(rgba(255, 187, 0, 0.4), rgba(255, 136, 0, 0.6)), url('../uploads/weather/sunny-bg.jpg');
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .weather-content {
-    padding: 1.5rem;
-    margin: 1rem;
-  }
-
-  .weather-details {
-    flex-direction: column;
-  }
-
-  .temperature {
-    font-size: 3rem;
-  }
-
-  .back-button {
-    top: 1rem;
-    left: 1rem;
-    padding: 0.5rem 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .weather-stats {
-    grid-template-columns: 1fr;
-  }
-
-  .weather-header h2 {
-    font-size: 2rem;
-  }
-}
-
+/* ======= Suggestions ======= */
 .suggestions-section {
   margin-top: 2rem;
   padding: 1rem;
@@ -203,4 +179,36 @@
   background-color: rgba(255, 255, 255, 0.3);
   color: #ffa500;
   text-decoration: underline;
+}
+
+/* ======= Responsive Design ======= */
+@media (max-width: 768px) {
+  .weather-content {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .weather-details {
+    flex-direction: column;
+  }
+
+  .temperature {
+    font-size: 3rem;
+  }
+
+  .back-button {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .weather-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .weather-header h2 {
+    font-size: 2rem;
+  }
 }

@@ -1,6 +1,6 @@
 import * as chatbotModel from '../models/chatbotModel.js';  // Make sure filename matches your model file
 
-// Get all major options (e.g., Beaches, Wildlife, Adventures, etc.)
+// Get all major options (e.g., Beaches, Wildlife, Adventures, StayEats etc.)
 export const getMajorOptions = async (req, res) => {
   try {
     const options = await chatbotModel.getMajorOptions();
@@ -69,7 +69,7 @@ export const getWildlifePlacesByType = async (req, res) => {
   }
 };
 
-// ADVENTURE-SPECIFIC ENDPOINTS (NEW)
+// ADVENTURE-SPECIFIC ENDPOINTS
 export const getAdventureTypes = async (req, res) => {
   try {
     const types = await chatbotModel.getAdventureTypes();
@@ -87,6 +87,29 @@ export const getAdventurePlacesByType = async (req, res) => {
     res.json(places);
   } catch (error) {
     console.error('Error fetching adventure places:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// STAYEATS-SPECIFIC ENDPOINTS (NEW)
+export const getStayEatsTypesByRegion = async (req, res) => {
+  try {
+    const region_id = req.params.region_id;
+    const types = await chatbotModel.getStayEatsTypesByRegionId(region_id);
+    res.json(types);
+  } catch (error) {
+    console.error('Error fetching stayeats types:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const getStayEatsPlacesByType = async (req, res) => {
+  try {
+    const type_id = req.params.type_id;
+    const places = await chatbotModel.getStayEatsPlacesByTypeId(type_id);
+    res.json(places);
+  } catch (error) {
+    console.error('Error fetching stayeats places:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };

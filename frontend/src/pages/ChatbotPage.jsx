@@ -7,8 +7,10 @@ import {
     getBeachesByType,
     getWildlifeTypesByRegion,
     getWildlifePlacesByType,
-    getAdventureTypes,           // no region param
-    getAdventurePlacesByType
+    getAdventureTypes,
+    getAdventurePlacesByType,
+    getStayEatsTypesByRegion,
+    getStayEatsPlacesByType
 } from '../services/chatbotService';
 
 export default function ChatbotPage() {
@@ -20,6 +22,9 @@ export default function ChatbotPage() {
     const [wildlifePlaces, setWildlifePlaces] = useState([]);
     const [adventureTypes, setAdventureTypes] = useState([]);
     const [adventurePlaces, setAdventurePlaces] = useState([]);
+    const [stayeatsTypes, setStayEatsTypes] = useState([]);
+    const [stayeatsPlaces, setStayEatsPlaces] = useState([]);
+
     const [messages, setMessages] = useState([
         { text: "Hello! I'm your Goa Beach Guide. How can I help you today?", sender: 'bot' }
     ]);
@@ -28,6 +33,7 @@ export default function ChatbotPage() {
     const [selectedType, setSelectedType] = useState(null);
     const [isTyping, setIsTyping] = useState(false);
 
+    // Initial load: fetch major options
     useEffect(() => {
         getMajorOptions()
             .then(options => {
@@ -37,128 +43,193 @@ export default function ChatbotPage() {
             .catch(console.error);
     }, []);
 
-   useEffect(() => {
-    if (selectedOption) {
-        setIsTyping(true);
-        getRegionsByOption(selectedOption.option_id)
-            .then(regions => {
-                setTimeout(() => {
-                    setRegions(regions);
-                    addBotMessage(`Great choice! Now select a region in Goa:`);
-                    setIsTyping(false);
-                }, 2000);
-            })
-            .catch(console.error);
+    // When major option changes
+    useEffect(() => {
+        if (selectedOption) {
+            setIsTyping(true);
 
-        // reset downstream states
-        setBeachTypes([]);
-        setBeaches([]);
-        setWildlifeTypes([]);
-        setWildlifePlaces([]);
-        setAdventureTypes([]);
-        setAdventurePlaces([]);
-        setSelectedRegion(null);
-        setSelectedType(null);
-    }
-}, [selectedOption]);
-
-useEffect(() => {
-    if (selectedRegion) {
-        setIsTyping(true);
-        const optionName = selectedOption.option_name.toLowerCase();
-
-        if (optionName.includes('beach')) {
-            getBeachTypesByRegion(selectedRegion.region_id)
-                .then(types => {
-                    setTimeout(() => {
-                        setBeachTypes(types);
-                        addBotMessage(`Nice! ${selectedRegion.region_name} is beautiful. What type of beach are you looking for?`);
-                        setIsTyping(false);
-                    }, 2000);
-                })
-                .catch(console.error);
-            setWildlifeTypes([]);
-            setWildlifePlaces([]);
-            setAdventureTypes([]);
-            setAdventurePlaces([]);
-        } else if (optionName.includes('wildlife')) {
-            getWildlifeTypesByRegion(selectedRegion.region_id)
-                .then(types => {
-                    setTimeout(() => {
-                        setWildlifeTypes(types);
-                        addBotMessage(`Awesome! What kind of wildlife are you interested in?`);
-                        setIsTyping(false);
-                    }, 2000);
-                })
-                .catch(console.error);
-            setBeachTypes([]);
-            setBeaches([]);
-            setAdventureTypes([]);
-            setAdventurePlaces([]);
-        } else if (optionName.includes('adventure')) {
-            getAdventureTypes()
-                .then(types => {
-                    setTimeout(() => {
-                        setAdventureTypes(types);
-                        addBotMessage(`Exciting! What type of adventure activities interest you?`);
-                        setIsTyping(false);
-                    }, 2000);
-                })
-                .catch(console.error);
+            // Reset selections & data downstream
+            setRegions([]);
             setBeachTypes([]);
             setBeaches([]);
             setWildlifeTypes([]);
             setWildlifePlaces([]);
-        }
-        setSelectedType(null);
-    }
-}, [selectedRegion]);
-
-useEffect(() => {
-    if (selectedType) {
-        setIsTyping(true);
-        const optionName = selectedOption.option_name.toLowerCase();
-
-        if (optionName.includes('beach')) {
-            getBeachesByType(selectedType.type_id)
-                .then(beaches => {
-                    setTimeout(() => {
-                        setBeaches(beaches);
-                        addBotMessage(`Here are some ${selectedType.type_name} beaches in ${selectedRegion.region_name}:`);
-                        setIsTyping(false);
-                    }, 2000);
-                })
-                .catch(console.error);
-            setWildlifePlaces([]);
+            setAdventureTypes([]);
             setAdventurePlaces([]);
-        } else if (optionName.includes('wildlife')) {
-            getWildlifePlacesByType(selectedType.type_id)
-                .then(places => {
-                    setTimeout(() => {
-                        setWildlifePlaces(places);
-                        addBotMessage(`Here are some ${selectedType.type_name} wildlife places in ${selectedRegion.region_name}:`);
-                        setIsTyping(false);
-                    }, 1000);
-                })
-                .catch(console.error);
-            setBeaches([]);
-            setAdventurePlaces([]);
-        } else if (optionName.includes('adventure')) {
-            getAdventurePlacesByType(selectedType.type_id)
-                .then(places => {
-                    setTimeout(() => {
-                        setAdventurePlaces(places);
-                        addBotMessage(`Here are some ${selectedType.type_name} adventure spots in ${selectedRegion.region_name}:`);
-                        setIsTyping(false);
-                    }, 2000);
-                })
-                .catch(console.error);
-            setBeaches([]);
-            setWildlifePlaces([]);
-        }
-    }
-}, [selectedType]);
+            setStayEatsTypes([]);
+            setStayEatsPlaces([]);
 
+            setSelectedRegion(null);
+            setSelectedType(null);
+
+            getRegionsByOption(selectedOption.option_id)
+                .then(regions => {
+                    setTimeout(() => {
+                        setRegions(regions);
+                        addBotMessage(`Great choice! Now select a region in Goa:`);
+                        setIsTyping(false);
+                    }, 1500);
+                })
+                .catch(console.error);
+        }
+    }, [selectedOption]);
+
+    // When region changes
+    useEffect(() => {
+        if (selectedRegion && selectedOption) {
+            setIsTyping(true);
+            const optionName = selectedOption.option_name.toLowerCase();
+
+            // Reset type selection on region change
+            setSelectedType(null);
+
+            if (optionName.includes('beach')) {
+                getBeachTypesByRegion(selectedRegion.region_id)
+                    .then(types => {
+                        setTimeout(() => {
+                            setBeachTypes(types);
+                            addBotMessage(`Nice! ${selectedRegion.region_name} is beautiful. What type of beach are you looking for?`);
+                            setIsTyping(false);
+                        }, 1500);
+                    })
+                    .catch(console.error);
+
+                // Clear unrelated data
+                setWildlifeTypes([]);
+                setWildlifePlaces([]);
+                setAdventureTypes([]);
+                setAdventurePlaces([]);
+                setStayEatsTypes([]);
+                setStayEatsPlaces([]);
+
+            } else if (optionName.includes('wildlife')) {
+                getWildlifeTypesByRegion(selectedRegion.region_id)
+                    .then(types => {
+                        setTimeout(() => {
+                            setWildlifeTypes(types);
+                            addBotMessage(`Awesome! What kind of wildlife are you interested in?`);
+                            setIsTyping(false);
+                        }, 1500);
+                    })
+                    .catch(console.error);
+
+                setBeachTypes([]);
+                setBeaches([]);
+                setAdventureTypes([]);
+                setAdventurePlaces([]);
+                setStayEatsTypes([]);
+                setStayEatsPlaces([]);
+
+            } else if (optionName.includes('adventure')) {
+                getAdventureTypes()
+                    .then(types => {
+                        setTimeout(() => {
+                            setAdventureTypes(types);
+                            addBotMessage(`Exciting! What type of adventure activities interest you?`);
+                            setIsTyping(false);
+                        }, 1500);
+                    })
+                    .catch(console.error);
+
+                setBeachTypes([]);
+                setBeaches([]);
+                setWildlifeTypes([]);
+                setWildlifePlaces([]);
+                setStayEatsTypes([]);
+                setStayEatsPlaces([]);
+
+            } else if (optionName.includes('stayeats')) {
+                getStayEatsTypesByRegion(selectedRegion.region_id)
+                    .then(types => {
+                        setTimeout(() => {
+                            setStayEatsTypes(types);
+                            addBotMessage(`Great choice! What type of stay or eatery are you interested in?`);
+                            setIsTyping(false);
+                        }, 1500);
+                    })
+                    .catch(console.error);
+
+                setBeachTypes([]);
+                setBeaches([]);
+                setWildlifeTypes([]);
+                setWildlifePlaces([]);
+                setAdventureTypes([]);
+                setAdventurePlaces([]);
+                setStayEatsPlaces([]);
+            }
+        }
+    }, [selectedRegion]);
+
+    // When type changes
+    useEffect(() => {
+        if (selectedType && selectedOption && selectedRegion) {
+            setIsTyping(true);
+            const optionName = selectedOption.option_name.toLowerCase();
+
+            if (optionName.includes('beach')) {
+                getBeachesByType(selectedType.type_id)
+                    .then(beaches => {
+                        setTimeout(() => {
+                            setBeaches(beaches);
+                            addBotMessage(`Here are some ${selectedType.type_name} beaches in ${selectedRegion.region_name}:`);
+                            setIsTyping(false);
+                        }, 1500);
+                    })
+                    .catch(console.error);
+
+                setWildlifePlaces([]);
+                setAdventurePlaces([]);
+                setStayEatsPlaces([]);
+
+            } else if (optionName.includes('wildlife')) {
+                getWildlifePlacesByType(selectedType.type_id)
+                    .then(places => {
+                        setTimeout(() => {
+                            setWildlifePlaces(places);
+                            addBotMessage(`Here are some ${selectedType.type_name} wildlife places in ${selectedRegion.region_name}:`);
+                            setIsTyping(false);
+                        }, 1500);
+                    })
+                    .catch(console.error);
+
+                setBeaches([]);
+                setAdventurePlaces([]);
+                setStayEatsPlaces([]);
+
+            } else if (optionName.includes('adventure')) {
+                getAdventurePlacesByType(selectedType.type_id)
+                    .then(places => {
+                        setTimeout(() => {
+                            setAdventurePlaces(places);
+                            addBotMessage(`Here are some ${selectedType.type_name} adventure spots in ${selectedRegion.region_name}:`);
+                            setIsTyping(false);
+                        }, 1500);
+                    })
+                    .catch(console.error);
+
+                setBeaches([]);
+                setWildlifePlaces([]);
+                setStayEatsPlaces([]);
+
+            } else if (optionName.includes('stayeats')) {
+                getStayEatsPlacesByType(selectedType.type_id)
+                    .then(places => {
+                        setTimeout(() => {
+                            setStayEatsPlaces(places);
+                            addBotMessage(`Here are some ${selectedType.type_name} options in ${selectedRegion.region_name}:`);
+                            setIsTyping(false);
+                        }, 1500);
+                    })
+                    .catch(console.error);
+
+                setBeaches([]);
+                setWildlifePlaces([]);
+                setAdventurePlaces([]);
+            }
+        }
+    }, [selectedType]);
+
+    // Helpers to add messages
     const addBotMessage = (text) => {
         setMessages(prev => [...prev, { text, sender: 'bot' }]);
     };
@@ -167,6 +238,7 @@ useEffect(() => {
         setMessages(prev => [...prev, { text, sender: 'user' }]);
     };
 
+    // Handle selections and log user messages
     const handleOptionSelect = (opt) => {
         setSelectedOption(opt);
         addUserMessage(opt.option_name);
@@ -182,14 +254,11 @@ useEffect(() => {
         addUserMessage(type.type_name);
     };
 
-    const scrollToBottom = () => {
+    // Scroll chat container to bottom when messages or lists update
+    useEffect(() => {
         const chatContainer = document.getElementById('chat-container');
         if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight;
-    };
-
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages, beaches, wildlifePlaces, adventurePlaces]);
+    }, [messages, beaches, wildlifePlaces, adventurePlaces, stayeatsPlaces]);
 
     return (
         <div className="chatbot-container">
@@ -198,7 +267,7 @@ useEffect(() => {
                     <div key={index} className={`message ${msg.sender}`}>
                         {msg.sender === 'bot' && (
                             <div className="bot-avatar">
-                                {/* SVG icon */}
+                                {/* Add your SVG icon here */}
                             </div>
                         )}
                         <div className="message-content">
@@ -277,6 +346,20 @@ useEffect(() => {
                     </div>
                 )}
 
+                {/* StayEats types */}
+                {stayeatsTypes.length > 0 && !selectedType && selectedOption?.option_name.toLowerCase().includes('stayeats') && (
+                    <div className="message bot">
+                        <div className="bot-avatar">{/* SVG icon */}</div>
+                        <div className="message-content options">
+                            {stayeatsTypes.map(t => (
+                                <button key={t.type_id} onClick={() => handleTypeSelect(t)} className="option-btn">
+                                    {t.type_name}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 {/* Beaches list */}
                 {beaches.length > 0 && (
                     <div className="message bot beaches-list">
@@ -334,6 +417,26 @@ useEffect(() => {
                     </div>
                 )}
 
+                {/* StayEats places list */}
+                {stayeatsPlaces.length > 0 && (
+                    <div className="message bot stayeats-list">
+                        <div className="bot-avatar">{/* SVG icon */}</div>
+                        <div className="message-content stayeats-places">
+                            {stayeatsPlaces.map(s => (
+                                <div key={s.stayeats_id} className="stayeats-card">
+                                    <h3>{s.stayeats_name}</h3>
+                                    {s.image_path && <img src={`/uploads/StayEatsPage/${s.image_path}`} alt={s.stayeats_name} className="stayeats-image" />}
+                                    <p>{s.description}</p>
+                                    <a href={s.directions_url} target="_blank" rel="noopener noreferrer" className="directions-btn">
+                                        Get Directions
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Typing indicator */}
                 {isTyping && (
                     <div className="message bot typing-indicator">
                         <div className="bot-avatar">{/* SVG icon */}</div>

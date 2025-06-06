@@ -37,7 +37,7 @@ export const getWildlifePlacesByType = async (type_id) => {
   return await res.json();
 };
 
-// Adventure endpoints (corrected)
+// Adventure endpoints
 export const getAdventureTypes = async () => {
   const res = await fetch(`${API_BASE}/adventure-types`);
   if (!res.ok) throw new Error('Failed to fetch adventure types');
@@ -47,5 +47,18 @@ export const getAdventureTypes = async () => {
 export const getAdventurePlacesByType = async (type_id) => {
   const res = await fetch(`${API_BASE}/adventure-places/${type_id}`);
   if (!res.ok) throw new Error('Failed to fetch adventure places');
+  return await res.json();
+};
+
+// StayEats endpoints (new)
+export const getStayEatsTypesByRegion = async (region_id) => {
+  const res = await fetch(`${API_BASE}/stayeats-types/${region_id}`);
+  if (!res.ok) throw new Error('Failed to fetch StayEats types');
+  return await res.json();
+};
+
+export const getStayEatsPlacesByType = async (type_id) => {
+  const res = await fetch(`${API_BASE}/stayeats-places/${type_id}`);
+  if (!res.ok) throw new Error('Failed to fetch StayEats places');
   return await res.json();
 };

@@ -1,0 +1,262 @@
+/* Safety.css - Responsive Styles for Local Tips & Safety Guide */
+
+/* Base Styles */
+:root {
+  --primary-color: #2a5c82; /* Goa ocean blue */
+  --secondary-color: #f4a261; /* Goa sunset orange */
+  --accent-color: #e76f51; /* Vibrant accent */
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--dark-color);
+  background-color: #f5f7fa;
+}
+
+/* Guide Container */
+.guide-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+}
+
+/* Title Section */
+.guide-title {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.guide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background-color: var(--secondary-color);
+}
+
+/* Buttons Section */
+.guide-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.guide-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.guide-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.guide-button-map {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.guide-button-chatbot {
+  background-color: var(--secondary-color);
+  color: var(--dark-color);
+}
+
+.guide-button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Sections */
+.guide-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--light-color);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.guide-section:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--box-shadow);
+}
+
+.guide-subtitle {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  border-left: 4px solid var(--secondary-color);
+  padding-left: 0.75rem;
+}
+
+/* List Items */
+.guide-list {
+  list-style-type: none;
+}
+
+.guide-list-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.guide-list-item:last-child {
+  border-bottom: none;
+}
+
+.guide-list-item strong {
+  color: var(--accent-color);
+  margin-right: 0.5rem;
+}
+
+.guide-list-item::before {
+  content: '•';
+  color: var(--secondary-color);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-right: 0.5rem;
+  margin-top: 0.1rem;
+}
+
+/* Footer */
+.guide-footer {
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .guide-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .guide-title {
+    font-size: 1.75rem;
+  }
+
+  .guide-section {
+    padding: 1rem;
+  }
+
+  .guide-subtitle {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .guide-title {
+    font-size: 1.5rem;
+  }
+
+  .guide-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .guide-button {
+    width: 100%;
+  }
+
+  .guide-list-item {
+    flex-direction: column;
+  }
+
+  .guide-list-item strong {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Accessibility Improvements */
+.guide-button:focus,
+.guide-button:active {
+  outline: 3px solid rgba(42, 92, 130, 0.5);
+}
+
+.guide-list-item:focus-within {
+  background-color: rgba(244, 162, 97, 0.1);
+}
+
+/* Animation Enhancements */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.guide-section {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.guide-section:nth-child(odd) {
+  animation-delay: 0.1s;
+}
+
+.guide-section:nth-child(even) {
+  animation-delay: 0.2s;
+}
+
+/* Print Styles */
+@media print {
+  .guide-container {
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .guide-buttons {
+    display: none;
+  }
+
+  .guide-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+    box-shadow: none;
+  }
+
+  .guide-footer {
+    border-top: none;
+  }
+}

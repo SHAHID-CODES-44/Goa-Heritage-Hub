@@ -34,23 +34,27 @@ function WeatherPage() {
   }, []);
 
   const setDynamicStyles = (data) => {
-    const temp = data.main.temp;
-    const condition = data.weather[0].main.toLowerCase();
+  const temp = data.main.temp;
+  const condition = data.weather[0].main.toLowerCase();
 
-    if (temp <= 18) {
-      setWeatherClass('cold-weather');
-      setWeatherIcon(coldImg);
-    } else if (condition.includes('rain')) {
-      setWeatherClass('rainy-weather');
-      setWeatherIcon(rainyImg);
-    } else if (condition.includes('cloud')) {
-      setWeatherClass('cloudy-weather');
-      setWeatherIcon(cloudyImg);
-    } else {
-      setWeatherClass('sunny-weather');
-      setWeatherIcon(sunnyImg);
-    }
-  };
+  if (condition.includes('rain')) {
+    setWeatherClass('rainy-weather');
+    setWeatherIcon(rainyImg);
+  } else if (condition.includes('cloud')) {
+    setWeatherClass('cloudy-weather');
+    setWeatherIcon(cloudyImg);
+  } else if (condition.includes('clear') || temp > 25) {
+    setWeatherClass('sunny-weather');
+    setWeatherIcon(sunnyImg);
+  } else if (temp <= 18) {
+    setWeatherClass('cold-weather');
+    setWeatherIcon(coldImg);
+  } else {
+    setWeatherClass('default-weather');
+    setWeatherIcon(sunnyImg);
+  }
+};
+
 
   const setDynamicSuggestions = (data) => {
     const temp = data.main.temp;
@@ -60,7 +64,7 @@ function WeatherPage() {
 
     if (temp > 28 && condition.includes('clear')) {
       suggestionsList = [
-        { text: 'Beaches', path: '/beache' },
+        { text: 'Beaches', path: '/beach' },
         { text: 'Adventure', path: '/adventure' },
         { text: 'Nightlife', path: '/nightlife' },
       ];

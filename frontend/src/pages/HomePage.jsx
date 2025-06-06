@@ -1,7 +1,7 @@
 import React, { useActionState, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
-import logo from '../uploads/Homepage/logo1.png';
+import logo from '../uploads/Homepage/logo5.png';
 import image1 from '../uploads/Homepage/image-1.png';
 import image2 from '../uploads/Homepage/image-2.png';
 import image3 from '../uploads/Homepage/image-3.png';
@@ -144,33 +144,7 @@ const HomePage = () => {
                 <a href="/Food"><button className="primary-btn gallery-btn">Restuarants in Goa</button></a>
                 <a href="/Facts"><button className="primary-btn gallery-btn">Facts About Goa</button></a>
             </div>
-
-            {/* Newsletter Section */}
-            <div className="newsletter-section">
-                <h2>Stay Updated</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="remember-me">
-                        <input
-                            type="checkbox"
-                            id="remember"
-                            checked={rememberMe}
-                            onChange={(e) => setRememberMe(e.target.checked)}
-                        />
-                        <label htmlFor="remember">Remember me</label>
-                    </div>
-                    <button type="submit" className="primary-btn submit-btn">Submit</button>
-                </form>
-            </div>
-
+            <hr />
             {/* CTA Section */}
             <div className="cta-section">
                 <img src={robotIcon} alt="Travel Assistant Robot" className="robot-icon" />
@@ -193,7 +167,7 @@ const HomePage = () => {
                         <a href="/FAQ">FAQs</a>
                         <a href="/Transport">Transport in Goa</a>
                         <a href="/About">About</a>
-                        <a href="/Beach">Destinations</a>
+                        <a href="/Safety">Guide & safety tips</a>
                         <a href="/Contact">Contact</a>
                         <a href="/Terms">Terms & Conditions</a>
                     </div>
