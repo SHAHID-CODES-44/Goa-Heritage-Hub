@@ -105,23 +105,17 @@ const EventPage = () => {
             <a href="/" className="event-navbar-logo">Goa Events</a>
           </div>
           <form className="event-search" onSubmit={handleSearch}>
-            <input
-              type="text"
-              className="event-search-input"
-              placeholder="Search events..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button type="submit" className="event-search-button">
-              <span className="event-search-icon">🔍</span>
-            </button>
           </form>
           <div className="event-navbar-links">
             <a href="/" className="event-navbar-link">Home</a>
             <a href="/Beach" className='event-navbar-link'>Beaches</a>
             <a href="/Map" className='event-navbar-link'>Use Map</a>
-            <a href="/events" className="event-navbar-link">Events</a>
+            <a href="#" className="event-navbar-link">Events</a>
             <a href="/About" className="event-navbar-link">About</a>
+          </div>
+          <div className="event-buttons">
+            <a href="/SignupIn"><button id="Signup">Sign Up</button></a>
+            <a href="/SignupIn"><button id="Login">Login</button></a>
           </div>
         </div>
       </nav>
@@ -156,14 +150,8 @@ const EventPage = () => {
                       </button>
                     )}
                   </p>
-                  <a
-                    href={directions_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="event-button"
-                  >
-                    Get Directions
-                  </a>
+
+                  <a href="https://www.whatsupgoa.com/calendar"><button className="event-button">Explore More</button></a>
                 </div>
               </div>
             );
@@ -176,9 +164,9 @@ const EventPage = () => {
         <div className="event-footer-container">
           <p className="event-footer-text">© {new Date().getFullYear()} Goa Events</p>
           <div className="event-footer-links">
-            <a href="/privacy" className="event-footer-link">Privacy</a>
-            <a href="/terms" className="event-footer-link">Terms</a>
-            <a href="/contact" className="event-footer-link">Contact</a>
+            <a href="/Adventure" className="event-footer-link">Explore</a>
+            <a href="/Facts" className="event-footer-link">About Goa</a>
+            <a href="/Contact" className="event-footer-link">Contact us</a>
           </div>
         </div>
       </footer>

@@ -68,7 +68,8 @@ const WildlifePage = () => {
               <div className="about-box">
                 <h3 className="about-title">About</h3>
                 <p className="about-text">{item.description}</p>
-                <button className="explore-btn">{item.button_label || 'Explore More'}</button>
+                <a href="/Map"><button className="explore-btn">Search on Map</button></a>
+                <a href="/Chatbot"><button className="explore-btn">Suggest Me</button></a>
               </div>
             </div>
           </section>
@@ -78,11 +79,11 @@ const WildlifePage = () => {
       {/* Footer */}
       <footer className="wildlife-footer">
         <div className="footer-content">
-          <p>© {new Date().getFullYear()} Goa Tourism. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Wild-Life of Goa.</p>
           <div className="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Contact Us</a>
+            <a href="/About">About Goa</a>
+            <a href="/Transport">Transport Guide</a>
+            <a href="/Feedback">Leave a Message</a>
           </div>
         </div>
       </footer>

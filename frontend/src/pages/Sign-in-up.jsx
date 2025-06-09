@@ -53,6 +53,12 @@ const SignupIn = () => {
             >
               Sign In
             </button>
+            <a href="/AdminLogin"><button 
+              className='image-btn'
+            >
+              Admin Login
+            </button>
+            </a>
           </div>
         </div>
       </div>

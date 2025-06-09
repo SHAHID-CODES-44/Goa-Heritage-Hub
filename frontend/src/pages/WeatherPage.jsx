@@ -66,31 +66,27 @@ function WeatherPage() {
       suggestionsList = [
         { text: 'Beaches', path: '/beach' },
         { text: 'Adventure', path: '/adventure' },
-        { text: 'Nightlife', path: '/nightlife' },
+        { text: 'Nightlife', path: '/Food' },
       ];
     } else if (condition.includes('rain')) {
       suggestionsList = [
-        { text: 'Culture & Heritage', path: '/culture' },
+        { text: 'Culture & Heritage', path: '/Event' },
         { text: 'Hotels & Foods', path: '/Food' },
-        { text: 'Shopping', path: '/shopping' },
       ];
     } else if (condition.includes('cloud')) {
       suggestionsList = [
         { text: 'Wildlife Sanctuaries', path: '/Wildlife' },
-        { text: 'Museums', path: '/culture' },
         { text: 'Hotels & Foods', path: '/Food' },
       ];
     } else if (temp <= 18) {
       suggestionsList = [
-        { text: 'Spice Plantations', path: '/culture' },
+        { text: 'Spice Plantations', path: '/Food' },
         { text: 'Indoor Cafés', path: '/Food' },
-        { text: 'Art Galleries', path: '/culture' },
       ];
     } else {
       suggestionsList = [
-        { text: 'Adventure Sports', path: '/adventure' },
+        { text: 'Adventure Sports', path: '/Adventure' },
         { text: 'Beaches', path: '/Beach' },
-        { text: 'Nightlife', path: '/nightlife' },
       ];
     }
 

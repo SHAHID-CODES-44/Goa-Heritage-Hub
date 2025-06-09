@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./TasteandRestPage.css";
+import { Helmet } from 'react-helmet';
+
 
 const TasteandRestPage = () => {
   const [filters, setFilters] = useState({
@@ -46,8 +48,27 @@ const TasteandRestPage = () => {
     }));
   };
 
+  // Clear filters
+  const clearFilters = () => {
+    setFilters({ location: '', cuisine: '', minRating: '' });
+  };
+
   return (
     <>
+    <Helmet>
+        <title>Best Restaurants & Eats in Goa | Top Goan Cuisine & Dining 2025</title>
+        <meta
+          name="description"
+          content="Explore the finest restaurants and eateries in Goa offering authentic Goan cuisine, seafood, luxury dining, and budget-friendly options. Discover your perfect meal in Goa."
+        />
+        <meta
+          name="keywords"
+          content="Goa restaurants, Goan cuisine, best eateries in Goa, seafood restaurants Goa, luxury dining Goa, budget restaurants Goa, top restaurants in Goa"
+        />
+        <meta name="author" content="YourSiteName" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+
       <div className="navbar-food">
         <div className="nav-food-txt">
           <a href="/"><p>Home</p></a>
@@ -67,7 +88,7 @@ const TasteandRestPage = () => {
         {/* Filter Section */}
         <div className="filter-container">
           <label>
-            Location: 
+            Location:
             <select
               name="location"
               value={filters.location}
@@ -75,15 +96,28 @@ const TasteandRestPage = () => {
               className="filter-input"
             >
               <option value="">All Locations</option>
-              <option value="panji">Panjim</option>
-              <option value="Benaulim">Benaulim</option>
+              <option value="Panaji">Panaji</option>
+              <option value="Cavelossim">Cavelossim</option>
               <option value="Calangute">Calangute</option>
-              {/* Add more locations as needed */}
+              <option value="Benaulim">Benaulim</option>
+              <option value="Cansaulim">Cansaulim</option>
+              <option value="Vainguinim">Vainguinim</option>
+              <option value="Mobor">Mobor</option>
+              <option value="Anjuna">Anjuna</option>
+              <option value="Vagator">Vagator</option>
+              <option value="Majorda">Majorda</option>
+              <option value="Betalbatim">Betalbatim</option>
+              <option value="Ashwem">Ashwem</option>
+              <option value="Assagao">Assagao</option>
+              <option value="Candolim">Candolim</option>
+              <option value="Mapusa">Mapusa</option>
+              <option value="Panjim">Panjim</option>
+              <option value="Sankhelim">Sankhelim</option>
             </select>
           </label>
 
           <label>
-            Cuisine: 
+            Cuisine:
             <select
               name="cuisine"
               value={filters.cuisine}
@@ -92,8 +126,19 @@ const TasteandRestPage = () => {
             >
               <option value="">All Cuisines</option>
               <option value="Luxury Resort">Luxury Resort</option>
+              <option value="Business Hotel">Business Hotel</option>
+              <option value="Boutique Hotel">Boutique Hotel</option>
+              <option value="Family Resort">Family Resort</option>
+              <option value="Budget Hotel">Budget Hotel</option>
               <option value="Seafood">Seafood</option>
-              {/* Add more cuisines as needed */}
+              <option value="Goan">Goan</option>
+              <option value="Cafe">Cafe</option>
+              <option value="French">French</option>
+              <option value="South Indian">South Indian</option>
+              <option value="Burmese">Burmese</option>
+              <option value="Luxury">Luxury</option>
+              <option value="Bar">Bar</option>
+              <option value="Multi-cuisine">Multi-cuisine</option>
             </select>
           </label>
 
@@ -111,11 +156,15 @@ const TasteandRestPage = () => {
               className="filter-input"
             />
           </label>
+
+          <button onClick={clearFilters} className="clear-filter-btn">
+            Clear Filters
+          </button>
         </div>
 
         <div className="restaurant-grid">
           {loading ? (
-            <p className="loading">Loading delicious bla...</p>
+            <p className="loading">Loading delicious spots...</p>
           ) : restaurants.length === 0 ? (
             <p>No restaurants found.</p>
           ) : (
@@ -127,7 +176,7 @@ const TasteandRestPage = () => {
                   <p><b>Location:</b> {location}</p>
                   <p><b>Cuisine:</b> {cuisine}</p>
                   <p className="rating"><b>Rating:</b> {rating} ⭐</p>
-                  <button id="direction-hotels">Directions</button>
+                  <a href="/Map"><button id="direction-hotels">Directions</button></a>
                 </div>
               </div>
             ))

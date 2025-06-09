@@ -19,6 +19,8 @@ import Map from './pages/MapsPage';
 import Event from './pages/EventPage';
 import Adventure from './pages/AdventuresPage';
 import Safety from './pages/SafetyPage';
+import Admin from './pages/AdminPage';
+import AdminLogin from './pages/AdminLoginPage';
 
 
 function App() {
@@ -43,6 +45,8 @@ function App() {
       <Route path='/Event' element={<Event/>} /> 
       <Route path='/Adventure' element={<Adventure/>} />
       <Route path='/Safety' element={<Safety/>}/>
+      <Route path='/Admin' element={<Admin/>} />
+      <Route path='/AdminLogin' element={<AdminLogin/>}/>
     </Routes>
   );
 }

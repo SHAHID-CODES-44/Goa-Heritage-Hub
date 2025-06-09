@@ -370,7 +370,7 @@ export default function ChatbotPage() {
                                     <h3>{b.beach_name}</h3>
                                     {b.image_path && <img src={`/uploads/BeachPage/${b.image_path}`} alt={b.beach_name} className="chatbot-beach-image" />}
                                     <p>{b.description}</p>
-                                    <a href={b.directions_url} target="_blank" rel="noopener noreferrer" className="directions-btn">
+                                    <a href="/Map" target="_blank" rel="noopener noreferrer" className="directions-btn">
                                         Get Directions
                                     </a>
                                 </div>
@@ -389,7 +389,7 @@ export default function ChatbotPage() {
                                     <h3>{w.wildlife_name}</h3>
                                     {w.image_path && <img src={`/uploads/WildLifePage/${w.image_path}`} alt={w.wildlife_name} className="wildlife-image" />}
                                     <p>{w.description}</p>
-                                    <a href={w.directions_url} target="_blank" rel="noopener noreferrer" className="directions-btn">
+                                    <a href="/Map" target="_blank" rel="noopener noreferrer" className="directions-btn">
                                         Get Directions
                                     </a>
                                 </div>
@@ -404,11 +404,11 @@ export default function ChatbotPage() {
                         <div className="bot-avatar">{/* SVG icon */}</div>
                         <div className="message-content adventure-places">
                             {adventurePlaces.map(a => (
-                                <div key={a.adventure_id} className="adventure-card">
-                                    <h3>{a.adventure_name}</h3>
+                                <div key={a.place_id} className="adventure-card">
+                                    <h3>{a.place_name}</h3>
                                     {a.image_path && <img src={`/uploads/adventurePage/${a.image_path}`} alt={a.adventure_name} className="adventure-image" />}
                                     <p>{a.description}</p>
-                                    <a href={a.directions_url} target="_blank" rel="noopener noreferrer" className="directions-btn">
+                                    <a href="/Map" target="_blank" rel="noopener noreferrer" className="directions-btn">
                                         Get Directions
                                     </a>
                                 </div>
@@ -427,7 +427,7 @@ export default function ChatbotPage() {
                                     <h3>{s.stayeats_name}</h3>
                                     {s.image_path && <img src={`/uploads/StayEatsPage/${s.image_path}`} alt={s.stayeats_name} className="stayeats-image" />}
                                     <p>{s.description}</p>
-                                    <a href={s.directions_url} target="_blank" rel="noopener noreferrer" className="directions-btn">
+                                    <a href="/Map" target="_blank" rel="noopener noreferrer" className="directions-btn">
                                         Get Directions
                                     </a>
                                 </div>

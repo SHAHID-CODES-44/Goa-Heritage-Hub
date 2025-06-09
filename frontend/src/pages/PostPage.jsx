@@ -53,9 +53,9 @@ const PostPages = () => {
     <div className="navbar-post">
       <div className="nav-txt-post">
       <a href="/"><p>Home</p></a>
-      <a href=""></a><p>About</p>
+      <a href="/About"></a><p>About</p>
       <a href="/Feedback"><p>Feedback</p></a>
-      <p>More</p>
+      <a href="/FAQ"><p>More</p></a>
       </div>
       <div className="post-nav-btns">
         <a href="/SignupIn"><button>Signup</button></a>

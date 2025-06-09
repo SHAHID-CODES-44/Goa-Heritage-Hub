@@ -17,6 +17,7 @@ body {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
 }
 
 .nav-logo {
@@ -24,11 +25,15 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
+  margin-bottom: 0.5rem;
 }
 
-.nav-links {
+.adv-nav-links {
   display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0.5rem 0;
 }
 
 .nav-link {
@@ -36,6 +41,7 @@ body {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
+  padding: 0.5rem 0;
 }
 
 .nav-link:hover {
@@ -45,6 +51,9 @@ body {
 .auth-buttons {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0.5rem 0;
 }
 
 .auth-button {
@@ -53,6 +62,7 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
+  white-space: nowrap;
 }
 
 .login {
@@ -92,7 +102,7 @@ body {
 
 .adventures-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
 }
 
@@ -160,25 +170,159 @@ body {
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
+@media (max-width: 992px) {
+  .adv-navbar {
     padding: 1rem;
+    gap: 0.5rem;
   }
   
-  .nav-links {
-    margin: 1rem 0;
-  }
-  
-  .auth-buttons {
-    margin-top: 1rem;
-  }
-  
-  .adventures-grid {
-    grid-template-columns: 1fr;
+  .adv-nav-links {
+    gap: 1rem;
   }
   
   .page-title {
     font-size: 2rem;
   }
+}
+
+@media (max-width: 768px) {
+  .adv-navbar {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .nav-logo {
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  .adv-nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+  }
+  
+  .auth-buttons {
+    margin: 0.5rem 0;
+    justify-content: center;
+  }
+  
+  .adventures-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.5rem;
+  }
+  
+  .adventure-card {
+    margin: 0 auto;
+    max-width: 300px;
+  }
+  
+  .adventures-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* modal........ */
+/* Modal Styles */
+.adventure-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-modal:hover {
+  color: #ff0000;
+}
+
+.modal-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.modal-details {
+  padding: 1rem;
+}
+
+.modal-details h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.modal-details p {
+  color: #555;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.modal-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.modal-button:hover {
+  background-color: #2980b9;
+}
+
+/* Make adventure cards clickable */
+.adventure-card {
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.adventure-card:hover {
+  transform: translateY(-5px);
 }

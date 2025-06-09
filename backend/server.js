@@ -15,7 +15,10 @@ import wildlifeRoutes from './routes/wildlifeRoutes.js';
 import beachRoutes from './routes/beachRoutes.js';
 import chatbotRoutes from './routes/chatbotRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
-import adventureRoutes from './routes/adventureRoutes.js';
+import adventureRoutes from './routes/adventureRoutes.js'; // existing adventure routes
+import adminRoutes from './routes/adminRoutes.js'; // <-- Import admin routes here
+import admloginRoutes from './routes/admloginRoutes.js';
+
 
 dotenv.config();
 
@@ -44,7 +47,12 @@ app.use('/api/wildlife', wildlifeRoutes);
 app.use('/api/beaches', beachRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/adventure', adventureRoutes);
-app.use('/api/chatbot', chatbotRoutes); // chatbot routes last or anywhere
+app.use('/api/chatbot', chatbotRoutes);
+
+// Mount admin routes under /api/admin
+app.use('/api/admin', adminRoutes);
+app.use('/api', admloginRoutes);
+
 
 // Sync Sequelize models with database and then start server
 sequelize.sync({ alter: true })  // or { force: false } depending on your needs

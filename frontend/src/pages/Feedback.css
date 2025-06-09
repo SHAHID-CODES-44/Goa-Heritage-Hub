@@ -1,139 +1,232 @@
-/* Container */
-.feedback-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 2rem;
-  background-color: #f8f9fa;
-  min-height: 100vh;
-}
+/* Feedback.css - Wide & Compact Form */
 
 /* Navigation Bar */
 .feedback-nav {
+  background-color: #2c3e50;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2c3e50;
-  padding: 1rem 2rem;
-  color: white;
-  flex-wrap: wrap;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.nav-links a,
-.auth-links a {
-  margin: 0 0.75rem;
-  color: white;
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: #ecf0f1;
   text-decoration: none;
   font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 0.5rem 0;
 }
 
-.auth-links .signup-btn,
-.auth-links .login-btn {
-  padding: 6px 14px;
-  background-color: #2980b9;
-  border-radius: 5px;
-  color: white;
-  transition: background 0.3s ease;
+.nav-links a:hover {
+  color: #3498db;
 }
 
-.auth-links .signup-btn:hover,
-.auth-links .login-btn:hover {
+.auth-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.signup-btn, .login-btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.signup-btn {
   background-color: #3498db;
+  color: white;
+  border: 1px solid #3498db;
 }
 
-/* Feedback Form */
+.signup-btn:hover {
+  background-color: #2980b9;
+}
+
+.login-btn {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+}
+
+.login-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Wide & Short Form Container */
 .feedback-form-container {
-  max-width: 600px;
-  margin: 3rem auto;
-  background-color: #ffffff;
-  padding: 2rem;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+  width: 90%;
+  max-width: 1000px; /* Wider container */
+  min-height: auto; /* Remove fixed height */
+  margin: 2rem auto;
+  padding: 2rem 3rem; /* More horizontal padding */
+  background-color: white;
   border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .feedback-form-container h2 {
+  color: #2c3e50;
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
+  margin-bottom: 1.5rem; /* Reduced margin */
+  font-size: 2rem;
+  font-weight: 600;
 }
 
-/* Form elements */
-.feedback-form .form-group {
-  margin-bottom: 1.2rem;
+/* Compact Form Layout */
+.feedback-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
 }
 
-.feedback-form label {
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-group label {
   display: block;
-  margin-bottom: 6px;
-  color: #555;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
   font-weight: 500;
 }
 
-.feedback-form input,
-.feedback-form textarea {
+.form-group input,
+.form-group textarea {
   width: 100%;
-  padding: 10px 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease;
+  padding: 0.7rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease;
 }
 
-.feedback-form input:focus,
-.feedback-form textarea:focus {
-  border-color: #2980b9;
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #3498db;
   outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-/* Submit Button */
-.submit-btn {
-  width: 100%;
-  padding: 12px;
-  background-color: #2980b9;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
+/* Full-width textarea */
+.form-group:nth-child(4) {
+  grid-column: span 2;
 }
 
-.submit-btn:hover {
-  background-color: #3498db;
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
 }
 
 /* Status Message */
 .status-message {
-  text-align: center;
-  padding: 10px;
+  padding: 0.8rem;
   margin-bottom: 1rem;
-  border-radius: 6px;
+  border-radius: 4px;
+  text-align: center;
   font-weight: 500;
+  grid-column: span 2;
 }
 
 .status-message.success {
-  background-color: #e0f7e9;
-  color: #2e7d32;
+  background-color: #d4edda;
+  color: #155724;
 }
 
 .status-message.error {
-  background-color: #fdecea;
-  color: #c62828;
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
+/* Submit Button */
+.submit-btn {
+  grid-column: span 2;
+  padding: 0.8rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.submit-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .feedback-form-container {
+    max-width: 800px;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
   .feedback-nav {
     flex-direction: column;
-    align-items: flex-start;
+    padding: 1rem;
   }
 
-  .nav-links,
-  .auth-links {
-    margin-top: 0.5rem;
+  .nav-links {
+    margin: 1rem 0;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .auth-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .feedback-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group:nth-child(4),
+  .status-message,
+  .submit-btn {
+    grid-column: 1;
+  }
+
+  .feedback-form-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .auth-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .signup-btn,
+  .login-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .feedback-form-container {
+    padding: 1.2rem;
+  }
+
+  .feedback-form-container h2 {
+    font-size: 1.6rem;
   }
 }

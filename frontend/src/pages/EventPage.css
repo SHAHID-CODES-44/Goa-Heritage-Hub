@@ -25,7 +25,7 @@
 
         .event-navbar-container {
           display: flex;
-          justify-content: space-between;
+          justify-content: space-evenly;
           align-items: center;
           max-width: 1200px;
           margin: 0 auto;
@@ -100,7 +100,16 @@
   color: #555;
   line-height: 1.5;
 }
-
+.event-buttons button {
+  margin-left: 20px;
+  width: 100px;
+  height: 36px;
+  border: 2px solid black;
+  border-radius: 4px;
+  font-size: 16px;
+  color: black;
+  background-color: aliceblue;
+}
 .event-toggle-description {
   background: none;
   border: none;

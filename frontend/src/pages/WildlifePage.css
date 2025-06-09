@@ -251,6 +251,7 @@ body {
   cursor: pointer;
   transition: background 0.3s;
   font-size: 0.9rem;
+  margin-right: 10px;
 }
 
 .explore-btn:hover {

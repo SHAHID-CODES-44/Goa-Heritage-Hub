@@ -218,6 +218,7 @@ section h2 {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  height: auto;
 }
 
 .beach-card:hover {
@@ -285,7 +286,10 @@ section h2 {
 section > p {
   color: #7f8c8d;
   font-style: italic;
-  padding: 1rem;
+  padding: 2rem;
+}
+#beach-dscr{
+  height: 200px;
 }
 
 /* Responsive adjustments */
@@ -428,4 +432,213 @@ section > p {
   .beach-footer-txt2 {
     flex: 1 1 100%;
   }
+}
+
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.close-modal:hover {
+  color: #333;
+}
+
+.modal-header {
+  padding: 25px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 28px;
+}
+
+.beach-rating {
+  font-size: 18px;
+  color: #f39c12;
+  margin: 10px 0;
+}
+
+.beach-location {
+  font-size: 16px;
+  color: #7f8c8d;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.modal-image-container {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+
+.modal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.modal-image:hover {
+  transform: scale(1.02);
+}
+
+.modal-details {
+  padding: 25px;
+}
+
+.modal-details h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 22px;
+  border-bottom: 2px solid #f1c40f;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.feature-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.feature-text {
+  font-size: 14px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.directions-btn, .save-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.directions-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.directions-btn:hover {
+  background-color: #2980b9;
+}
+
+.save-btn {
+  background-color: #f1c40f;
+  color: #2c3e50;
+}
+
+.save-btn:hover {
+  background-color: #f39c12;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .modal-body {
+    flex-direction: row;
+  }
+  
+  .modal-image-container {
+    width: 50%;
+    height: auto;
+  }
+  
+  .modal-details {
+    width: 50%;
+  }
+}
+
+/* Loading spinner */
+.loading-spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 30px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: #e74c3c;
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
 }
