@@ -1,3 +1,4 @@
+// App.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -22,6 +23,8 @@ import Safety from './pages/SafetyPage';
 import Admin from './pages/AdminPage';
 import AdminLogin from './pages/AdminLoginPage';
 
+// 🔐 NEW: Protect /Admin route
+import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 
 function App() {
   return (
@@ -39,14 +42,24 @@ function App() {
       <Route path='/Contact' element={<Contact />} />
       <Route path='/Terms' element={<Terms />} />
       <Route path='/Facts' element={<Facts />} />
-      <Route path='/Transport' element={<Transport/>}/>
-      <Route path='/Chatbot' element={<Chabot/>} />
-      <Route path='/Map' element={<Map/>}/>
-      <Route path='/Event' element={<Event/>} /> 
-      <Route path='/Adventure' element={<Adventure/>} />
-      <Route path='/Safety' element={<Safety/>}/>
-      <Route path='/Admin' element={<Admin/>} />
-      <Route path='/AdminLogin' element={<AdminLogin/>}/>
+      <Route path='/Transport' element={<Transport />} />
+      <Route path='/Chatbot' element={<Chabot />} />
+      <Route path='/Map' element={<Map />} />
+      <Route path='/Event' element={<Event />} />
+      <Route path='/Adventure' element={<Adventure />} />
+      <Route path='/Safety' element={<Safety />} />
+
+      {/* 🔐 PROTECTED ROUTE */}
+      <Route
+        path="/Admin"
+        element={
+          <ProtectedAdminRoute>
+            <Admin />
+          </ProtectedAdminRoute>
+        }
+      />
+
+<Route path='/AdminLogin' element={<AdminLogin />} />
     </Routes>
   );
 }

@@ -1,5 +1,6 @@
 const ADVENTURE_BASE_URL = 'http://localhost:5000/api/admin/adventures';
 const BEACH_BASE_URL = 'http://localhost:5000/api/admin/beaches';
+const RESTAURANT_BASE_URL = 'http://localhost:5000/api/admin/restaurants';
 
 // Adventure APIs
 export const getAdventures = async () => {
@@ -80,5 +81,46 @@ export const deleteBeach = async (id) => {
     method: 'DELETE',
   });
   if (!res.ok) throw new Error('Failed to delete beach');
+  return res.json();
+};
+
+// 🆕 Restaurant APIs
+export const getRestaurants = async () => {
+  const res = await fetch(RESTAURANT_BASE_URL);
+  if (!res.ok) throw new Error('Failed to fetch restaurants');
+  return res.json();
+};
+
+export const getRestaurantById = async (id) => {
+  const res = await fetch(`${RESTAURANT_BASE_URL}/${id}`);
+  if (!res.ok) throw new Error('Failed to fetch restaurant');
+  return res.json();
+};
+
+export const createRestaurant = async (restaurantData) => {
+  const res = await fetch(RESTAURANT_BASE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(restaurantData),
+  });
+  if (!res.ok) throw new Error('Failed to create restaurant');
+  return res.json();
+};
+
+export const updateRestaurant = async (id, restaurantData) => {
+  const res = await fetch(`${RESTAURANT_BASE_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(restaurantData),
+  });
+  if (!res.ok) throw new Error('Failed to update restaurant');
+  return res.json();
+};
+
+export const deleteRestaurant = async (id) => {
+  const res = await fetch(`${RESTAURANT_BASE_URL}/${id}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete restaurant');
   return res.json();
 };

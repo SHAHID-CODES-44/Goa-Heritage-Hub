@@ -1,4 +1,3 @@
-// backend/routes/adminRoutes.js
 import express from 'express';
 import {
   getAdventures,
@@ -10,7 +9,12 @@ import {
   getBeachById,
   createBeach,
   updateBeach,
-  deleteBeach
+  deleteBeach,
+  getRestaurants,
+  getRestaurantById,
+  createRestaurant,
+  updateRestaurant,
+  deleteRestaurant
 } from '../controllers/adminController.js';
 
 const router = express.Router();
@@ -28,5 +32,12 @@ router.get('/beaches/:id', getBeachById);
 router.post('/beaches', createBeach);
 router.put('/beaches/:id', updateBeach);
 router.delete('/beaches/:id', deleteBeach);
+
+// 🆕 Restaurant (Stay & Eats) routes
+router.get('/restaurants', getRestaurants);
+router.get('/restaurants/:id', getRestaurantById);
+router.post('/restaurants', createRestaurant);
+router.put('/restaurants/:id', updateRestaurant);
+router.delete('/restaurants/:id', deleteRestaurant);
 
 export default router;

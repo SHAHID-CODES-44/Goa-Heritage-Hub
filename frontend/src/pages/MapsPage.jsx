@@ -4,21 +4,21 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
 import { Helmet } from 'react-helmet';
-
+import { useLocation } from 'react-router-dom';
 import "./Map.css";
 
 const dataByCategory = {
   Wildlife: [
-    { name: "Bondla Wildlife Sanctuary", lat: 15.4089, lng: 74.1367 },
-    { name: "Bhagwan Mahaveer Wildlife Sanctuary", lat: 15.3833, lng: 74.3333 },
-    { name: "Mollem National Park", lat: 15.4, lng: 74.35 },
-    { name: "Cotigao Wildlife Sanctuary", lat: 14.9966, lng: 74.0708 },
-    { name: "Mhadei Wildlife Sanctuary", lat: 15.5322, lng: 74.2186 },
-    { name: "Netravali Wildlife Sanctuary", lat: 15.23, lng: 74.14 },
-    { name: "Salim Ali Bird Sanctuary", lat: 15.517, lng: 73.8666 },
+    { name: "Bondla Wildlife Sanctuary", lat: 15.44024, lng: 74.10639 },
+    { name: "Bhagwan Mahaveer Wildlife Sanctuary", lat: 15.33427, lng: 74.28833 },
+    { name: "Mollem National Park", lat: 15.33547, lng: 74.26067 },
+    { name: "Cotigao Wildlife Sanctuary", lat: 14.97629, lng: 74.20611 },
+    { name: "Mhadei Wildlife Sanctuary", lat: 15.59693, lng: 74.18799 },
+    { name: "Netravali Wildlife Sanctuary", lat: 15.08387, lng: 74.23207 },
+    { name: "Salim Ali Bird Sanctuary", lat: 15.51328, lng: 73.87039 },
   ],
   Adventures: [
-  { name: "Scuba Diving - Grande Island", lat: 15.3832, lng: 73.7541 },
+  { name: "Scuba Diving - Grande Island", lat: 15.54570, lng: 73.76249 },
   { name: "Scuba Diving - Calangute Beach", lat: 15.5449, lng: 73.7550 },
   { name: "Jet Skiing - Baga Beach", lat: 15.5523, lng: 73.7517 },
   { name: "Jet Skiing - Dona Paula", lat: 15.4600, lng: 73.8000 },
@@ -37,6 +37,22 @@ const dataByCategory = {
   { name: "White Water Rafting - Mhadei River", lat: 15.5526, lng: 74.2196 },
   { name: "Flyboarding - Chapora", lat: 15.6080, lng: 73.7430 },
   { name: "Flyboarding - Vagator", lat: 15.5920, lng: 73.7396 },
+  {
+  name: "Cycling Tour - Divar Island",
+  lat: 15.5555,
+  lng: 73.8477
+},
+{
+  name: "Rock Climbing and Rappelling - Netravali",
+  lat: 15.1500,
+  lng: 74.2000
+},
+{
+  name: "Banana Boat Ride - Palolem Beach",
+  lat: 15.0096, 
+  lng: 74.0235
+},
+  { name: "Parasailing - Calangute Beach", lat: 15.5449, lng: 73.7550},
   { name: "Trekking - Dudhsagar Waterfalls", lat: 15.3142, lng: 74.3149 }
 ],
 
@@ -72,11 +88,57 @@ const dataByCategory = {
   { name: "Velsao Beach", lat: 15.215, lng: 73.942 },
   { name: "Sernabatim Beach", lat: 15.23, lng: 73.93 },
   { name: "Keri Beach", lat: 15.659, lng: 73.711 },
+  {
+  name: "Agonda Beach",
+  lat: 15.038,
+  lng: 73.9886
+},
+{
+  name: "Varca Beach",
+  lat: 15.2200,  // Approximate coordinates for Varca Beach
+  lng: 73.9167
+},
+{
+  name: "Betalbatim Beach",
+  lat: 15.2529,
+  lng: 73.9172
+},
+{
+  "name": "Arossim Beach",
+  "lat": 15.2358,
+  "lng": 73.9089
+},
+{
+  "name": "Ozran Beach",
+  "lat": 15.5943,
+  "lng": 73.7365
+},
   { name: "Sinquerim Beach", lat: 15.51, lng: 73.764 },
 ],
 
 "Stay & Eats": [
   // Resorts & Hotels
+   {
+    "name": "Silver Spoon, Sanquelim",
+    "lat": 15.56228,
+    "lng": 74.01289,
+    "category": "Stay & Eats",
+    "note": "Opposite Radhakrishna Temple, Desai Nagar, Sanquelim"
+  },
+  {
+    "name": "Silver Spoon, Margao",
+    "lat": 15.2966,
+    "lng": 73.9549,
+    "category": "Stay & Eats",
+    "note": "Abade Faria Road, Opposite IndusInd Bank ATM, Comba, Margao"
+  },
+  {
+    "name": "Silver Spoon Beach Shack, Colva",
+    "lat": 15.2730,
+    "lng": 73.9340,
+    "category": "Stay & Eats",
+    "note": "3rd Ward, near Longuinhos Beach Resort, Colva (Temporarily Closed)"
+  },
   { name: "Taj Exotica Resort & Spa, Benaulim", lat: 15.262, lng: 73.922 },
   { name: "The Leela Goa, Cavelossim", lat: 15.1746, lng: 73.941 },
   { name: "Alila Diwa Goa, Majorda", lat: 15.278, lng: 73.93 },
@@ -120,14 +182,15 @@ const dataByCategory = {
   { name: "Viva Vida, Palolem", lat: 15.0089, lng: 74.0213 },
 ],
 };
-
 const GoaMap = () => {
   const [map, setMap] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
-  const [category, setCategory] = useState("Wildlife");
+  const [category, setCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [initialLocation, setInitialLocation] = useState(null);
   const routingControlRef = useRef(null);
+  const location = useLocation();
 
   // Initialize map
   useEffect(() => {
@@ -139,7 +202,39 @@ const GoaMap = () => {
 
       setMap(initialMap);
     }
-  }, [map]);
+
+    // Check for URL parameters
+    const searchParams = new URLSearchParams(location.search);
+    const name = searchParams.get('name');
+    const lat = parseFloat(searchParams.get('lat'));
+    const lng = parseFloat(searchParams.get('lng'));
+
+    if (name && lat && lng) {
+      setInitialLocation({ name, lat, lng });
+    }
+  }, [map, location.search]);
+
+  // Handle initial location from URL
+  useEffect(() => {
+    if (map && initialLocation) {
+      const { name, lat, lng } = initialLocation;
+      map.setView([lat, lng], 15);
+      
+      L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup(`<b>${name}</b>`)
+        .openPopup();
+
+      // Set search term to show in input
+      setSearchTerm(name);
+      
+      // Try to find category
+      const foundCategory = Object.keys(dataByCategory).find(key => 
+        dataByCategory[key].some(item => item.name === name)
+      );
+      if (foundCategory) setCategory(foundCategory);
+    }
+  }, [map, initialLocation]);
 
   // Get user location and mark on map
   useEffect(() => {
@@ -152,7 +247,36 @@ const GoaMap = () => {
           setUserLocation(latlng);
 
           L.marker(latlng).addTo(map).bindPopup("You are here").openPopup();
-          map.setView(latlng, 13);
+          
+          // If we have an initial location, show route
+          if (initialLocation) {
+            if (routingControlRef.current) {
+              routingControlRef.current.setWaypoints([
+                L.latLng(latlng[0], latlng[1]),
+                L.latLng(initialLocation.lat, initialLocation.lng),
+              ]);
+            } else {
+              routingControlRef.current = L.Routing.control({
+                waypoints: [
+                  L.latLng(latlng[0], latlng[1]),
+                  L.latLng(initialLocation.lat, initialLocation.lng),
+                ],
+                lineOptions: {
+                  styles: [{ color: "blue", opacity: 0.6, weight: 5 }],
+                },
+                router: L.Routing.osrmv1({
+                  serviceUrl: "https://router.project-osrm.org/route/v1",
+                }),
+                showAlternatives: false,
+                fitSelectedRoutes: true,
+                addWaypoints: false,
+                routeWhileDragging: false,
+                createMarker: () => null,
+              }).addTo(map);
+            }
+          } else {
+            map.setView(latlng, 13);
+          }
         },
         (err) => {
           console.error("Error getting location", err);
@@ -167,7 +291,7 @@ const GoaMap = () => {
         }
       );
     }
-  }, [map]);
+  }, [map, initialLocation]);
 
   // When category changes, reset search and suggestions
   const onCategoryChange = (e) => {
@@ -207,15 +331,16 @@ const GoaMap = () => {
 
     if (userLocation) {
       if (routingControlRef.current) {
-        // Update waypoints instead of removing control
         routingControlRef.current.setWaypoints([
           L.latLng(userLocation[0], userLocation[1]),
           L.latLng(loc.lat, loc.lng),
         ]);
       } else {
-        // Create routing control first time
         routingControlRef.current = L.Routing.control({
-          waypoints: [L.latLng(userLocation[0], userLocation[1]), L.latLng(loc.lat, loc.lng)],
+          waypoints: [
+            L.latLng(userLocation[0], userLocation[1]),
+            L.latLng(loc.lat, loc.lng),
+          ],
           lineOptions: {
             styles: [{ color: "blue", opacity: 0.6, weight: 5 }],
           },
@@ -245,7 +370,7 @@ const GoaMap = () => {
 
   return (
     <>
-     <Helmet>
+      <Helmet>
         <title>Goa Tourist Map | Explore Beaches, Wildlife & Attractions</title>
         <meta
           name="description"
@@ -261,7 +386,7 @@ const GoaMap = () => {
       <div className="map-main-container">
         <div className="map-navbar">
           <div className="map-nav-txt">
-           <a href="/"><p>Home</p></a> 
+            <a href="/"><p>Home</p></a> 
             <a href="/Food"><p>See all Hotels</p></a>
             <a href="/WeatherApp"><p>See Weather</p></a>
             <a href="/Feedback"><p>Feedback</p></a>
@@ -277,18 +402,17 @@ const GoaMap = () => {
         </div>
         <div style={{ position: "relative" }}>
           <div className="map-select-opt">
-            <h4>Select Category :</h4>
+            <h4>Category</h4>
             <select value={category} onChange={onCategoryChange}>
-  <option value="Wildlife">Wildlife</option>
-  <option value="Beaches">Beaches</option>
-  <option value="Stay & Eats">Stay & Eats</option>
-  <option value="Adventures">Adventures</option> {/* NEW */}
-</select>
-
+              <option value="Select">Select</option>
+              <option value="Wildlife">Wildlife</option>
+              <option value="Beaches">Beaches</option>
+              <option value="Stay & Eats">Stay & Eats</option>
+              <option value="Adventures">Adventures</option>
+            </select>
           </div>
           <div className="map-input-search">
-
-            <h4>Search</h4>
+            <h4>Search: </h4>
             <input
               type="text"
               placeholder={`Search ${category}`}
@@ -325,10 +449,10 @@ const GoaMap = () => {
               </ul>
             )}
           </div>
-<br />
-<br />
-<br />
-<br />
+          <br />
+          <br />
+          <br />
+          <br />
           <button
             onClick={recenterMap}
             style={{

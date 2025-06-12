@@ -261,6 +261,7 @@ export default function ChatbotPage() {
     }, [messages, beaches, wildlifePlaces, adventurePlaces, stayeatsPlaces]);
 
     return (
+        <>
         <div className="chatbot-container">
             <div className="chatbot-messages" id="chat-container">
                 {messages.map((msg, index) => (
@@ -451,5 +452,6 @@ export default function ChatbotPage() {
                 <p>@Goa Beach Guide {new Date().getFullYear()}</p>
             </div>
         </div>
+        </>
     );
 }

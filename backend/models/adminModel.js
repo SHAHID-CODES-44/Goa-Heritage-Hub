@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
 
-// Adventure model
+// Adventure model (existing)
 export const Adventure = sequelize.define('Adventure', {
   adventure_id: {
     type: DataTypes.INTEGER,
@@ -29,7 +29,7 @@ export const Adventure = sequelize.define('Adventure', {
   timestamps: false
 });
 
-// Beach model
+// Beach model (existing)
 export const Beach = sequelize.define('Beach', {
   id: {
     type: DataTypes.INTEGER,
@@ -62,5 +62,37 @@ export const Beach = sequelize.define('Beach', {
   }
 }, {
   tableName: 'beaches',
+  timestamps: false
+});
+
+// 🆕 Stay & Eats (restaurants) model
+export const Restaurant = sequelize.define('Restaurant', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  name: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  location: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  cuisine: {
+    type: DataTypes.STRING(100),
+    allowNull: true
+  },
+  image: {
+    type: DataTypes.STRING(255),
+    allowNull: true
+  },
+  rating: {
+    type: DataTypes.DECIMAL(2, 1),
+    defaultValue: 0.0
+  }
+}, {
+  tableName: 'restaurants',
   timestamps: false
 });

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import "./TasteandRestPage.css";
 import { Helmet } from 'react-helmet';
 
-
 const TasteandRestPage = () => {
   const [filters, setFilters] = useState({
     location: '',
@@ -12,13 +11,13 @@ const TasteandRestPage = () => {
 
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Fetch restaurants when filters change
   const fetchRestaurants = async () => {
     setLoading(true);
 
     const query = new URLSearchParams();
-
     if (filters.location) query.append('location', filters.location);
     if (filters.cuisine) query.append('cuisine', filters.cuisine);
     if (filters.minRating) query.append('minRating', filters.minRating);
@@ -26,7 +25,7 @@ const TasteandRestPage = () => {
     try {
       const res = await fetch(`http://localhost:5000/api/food/restaurants?${query.toString()}`);
       const data = await res.json();
-      setRestaurants(Array.isArray(data) ? data : [data]); // ensure array
+      setRestaurants(Array.isArray(data) ? data : [data]);
     } catch (error) {
       console.error('Error fetching restaurants:', error);
       setRestaurants([]);
@@ -39,32 +38,42 @@ const TasteandRestPage = () => {
     fetchRestaurants();
   }, [filters]);
 
-  // Handle filter input changes
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      [name]: value
-    }));
+    setFilters(prev => ({ ...prev, [name]: value }));
   };
 
-  // Clear filters
   const clearFilters = () => {
     setFilters({ location: '', cuisine: '', minRating: '' });
   };
 
+  const openModal = (restaurant) => {
+    setSelectedRestaurant(restaurant);
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isModalOpen) {
+        closeModal();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isModalOpen]);
+
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Best Restaurants & Eats in Goa | Top Goan Cuisine & Dining 2025</title>
-        <meta
-          name="description"
-          content="Explore the finest restaurants and eateries in Goa offering authentic Goan cuisine, seafood, luxury dining, and budget-friendly options. Discover your perfect meal in Goa."
-        />
-        <meta
-          name="keywords"
-          content="Goa restaurants, Goan cuisine, best eateries in Goa, seafood restaurants Goa, luxury dining Goa, budget restaurants Goa, top restaurants in Goa"
-        />
+        <meta name="description" content="Explore the finest restaurants and eateries in Goa offering authentic Goan cuisine, seafood, luxury dining, and budget-friendly options." />
+        <meta name="keywords" content="Goa restaurants, Goan cuisine, seafood restaurants Goa, luxury dining Goa, budget restaurants Goa" />
         <meta name="author" content="YourSiteName" />
         <meta name="robots" content="index, follow" />
       </Helmet>
@@ -85,57 +94,31 @@ const TasteandRestPage = () => {
       <div className="taste-and-rest-page">
         <h2>Restaurants in Goa</h2>
 
-        {/* Filter Section */}
         <div className="filter-container">
           <label>
             Location:
-            <select
-              name="location"
-              value={filters.location}
-              onChange={handleFilterChange}
-              className="filter-input"
-            >
+            <select name="location" value={filters.location} onChange={handleFilterChange} className="filter-input">
               <option value="">All Locations</option>
               <option value="Panaji">Panaji</option>
-              <option value="Cavelossim">Cavelossim</option>
               <option value="Calangute">Calangute</option>
-              <option value="Benaulim">Benaulim</option>
-              <option value="Cansaulim">Cansaulim</option>
-              <option value="Vainguinim">Vainguinim</option>
-              <option value="Mobor">Mobor</option>
               <option value="Anjuna">Anjuna</option>
-              <option value="Vagator">Vagator</option>
-              <option value="Majorda">Majorda</option>
-              <option value="Betalbatim">Betalbatim</option>
-              <option value="Ashwem">Ashwem</option>
-              <option value="Assagao">Assagao</option>
               <option value="Candolim">Candolim</option>
+              <option value="Vagator">Vagator</option>
+              <option value="Benaulim">Benaulim</option>
               <option value="Mapusa">Mapusa</option>
               <option value="Panjim">Panjim</option>
-              <option value="Sankhelim">Sankhelim</option>
+              <option value="Colva">Colva</option>
+              <option value="Assagao">Assagao</option>
             </select>
           </label>
 
           <label>
             Cuisine:
-            <select
-              name="cuisine"
-              value={filters.cuisine}
-              onChange={handleFilterChange}
-              className="filter-input"
-            >
+            <select name="cuisine" value={filters.cuisine} onChange={handleFilterChange} className="filter-input">
               <option value="">All Cuisines</option>
-              <option value="Luxury Resort">Luxury Resort</option>
-              <option value="Business Hotel">Business Hotel</option>
-              <option value="Boutique Hotel">Boutique Hotel</option>
-              <option value="Family Resort">Family Resort</option>
-              <option value="Budget Hotel">Budget Hotel</option>
-              <option value="Seafood">Seafood</option>
               <option value="Goan">Goan</option>
+              <option value="Seafood">Seafood</option>
               <option value="Cafe">Cafe</option>
-              <option value="French">French</option>
-              <option value="South Indian">South Indian</option>
-              <option value="Burmese">Burmese</option>
               <option value="Luxury">Luxury</option>
               <option value="Bar">Bar</option>
               <option value="Multi-cuisine">Multi-cuisine</option>
@@ -151,37 +134,108 @@ const TasteandRestPage = () => {
               min="0"
               max="5"
               step="0.1"
-              placeholder="0-5"
+              placeholder="0–5"
               onChange={handleFilterChange}
               className="filter-input"
             />
           </label>
 
-          <button onClick={clearFilters} className="clear-filter-btn">
-            Clear Filters
-          </button>
+          <button onClick={clearFilters} className="clear-filter-btn">Clear Filters</button>
         </div>
 
         <div className="restaurant-grid">
           {loading ? (
             <p className="loading">Loading delicious spots...</p>
           ) : restaurants.length === 0 ? (
-            <p>No restaurants found.</p>
+            <p className="no-results">No restaurants found matching your criteria.</p>
           ) : (
-            restaurants.map(({ id, name, location, cuisine, image, rating }) => (
-              <div key={id} className="restaurant-card">
-                <img src={`/uploads/foodImages/${image}`} alt={name} />
+            restaurants.map((restaurant) => (
+              <div
+                key={restaurant._id || restaurant.id}
+                className="restaurant-card"
+                onClick={() => openModal(restaurant)}
+              >
+                <img
+                  src={`/uploads/foodImages/${restaurant.image}`}
+                  alt={restaurant.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = '/images/default-restaurant.jpg';
+                  }}
+                />
                 <div className="restaurant-details">
-                  <h3>{name}</h3>
-                  <p><b>Location:</b> {location}</p>
-                  <p><b>Cuisine:</b> {cuisine}</p>
-                  <p className="rating"><b>Rating:</b> {rating} ⭐</p>
-                  <a href="/Map"><button id="direction-hotels">Directions</button></a>
+                  <h3>{restaurant.name}</h3>
+                  <p><b>Location:</b> {restaurant.location}</p>
+                  <p><b>Cuisine:</b> {restaurant.cuisine}</p>
+                  <p className="rating"><b>Rating:</b> {restaurant.rating} ⭐</p>
+                  <button className="view-details-btn" onClick={(e) => { e.stopPropagation(); openModal(restaurant); }}>
+                    View Details
+                  </button>
                 </div>
               </div>
             ))
           )}
         </div>
+
+        {isModalOpen && selectedRestaurant && (
+          <div className="restaurant-modal">
+            <div className="modal-overlay" onClick={closeModal}>
+              <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                <button className="modal-close-btn" onClick={closeModal} aria-label="Close modal">&times;</button>
+
+                <div className="modal-image-container">
+                  <img
+                    src={`/uploads/foodImages/${selectedRestaurant.image}`}
+                    alt={selectedRestaurant.name}
+                    className="modal-image"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/images/default-restaurant.jpg';
+                    }}
+                  />
+                </div>
+
+                <div className="modal-details">
+                  <h2>{selectedRestaurant.name}</h2>
+                  <div className="detail-row"><span className="detail-label">Location:</span> {selectedRestaurant.location}</div>
+                  <div className="detail-row"><span className="detail-label">Cuisine:</span> {selectedRestaurant.cuisine}</div>
+                  <div className="detail-row rating-stars">
+                    <span className="detail-label">Rating:</span>
+                    {Array.from({ length: Math.floor(selectedRestaurant.rating) }).map((_, i) => <span key={i}>⭐</span>)}
+                    {selectedRestaurant.rating % 1 >= 0.5 && <span>½</span>}
+                    <span className="rating-value">({selectedRestaurant.rating})</span>
+                  </div>
+
+                  {selectedRestaurant.description && (
+                    <div className="detail-row full-width">
+                      <span className="detail-label">Description:</span>
+                      <p>{selectedRestaurant.description}</p>
+                    </div>
+                  )}
+
+                  {selectedRestaurant.hours && (
+                    <div className="detail-row"><span className="detail-label">Opening Hours:</span> {selectedRestaurant.hours}</div>
+                  )}
+
+                  {selectedRestaurant.priceRange && (
+                    <div className="detail-row"><span className="detail-label">Price Range:</span> {selectedRestaurant.priceRange}</div>
+                  )}
+
+                  {selectedRestaurant.contact && (
+                    <div className="detail-row"><span className="detail-label">Contact:</span> {selectedRestaurant.contact}</div>
+                  )}
+
+                  <div className="modal-actions">
+                    <a href="/Map" className="modal-direction-btn" onClick={(e) => e.stopPropagation()}>
+                      See Directions
+                    </a>
+                    <button className="modal-back-btn" onClick={closeModal}>Back to List</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

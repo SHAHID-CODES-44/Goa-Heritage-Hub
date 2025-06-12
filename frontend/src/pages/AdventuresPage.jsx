@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchAdventures } from '../services/adventureService';
 import './Adventure.css';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 
 const AdventurePage = () => {
   const [adventures, setAdventures] = useState([]);
@@ -61,14 +62,14 @@ const AdventurePage = () => {
         {/* Adventure Content - with modal trigger */}
         <div className="adventure-container">
           <h1 className="page-title">Adventures in Goa</h1>
-          
+
           {adventures.length === 0 ? (
             <p className="no-adventures">No adventures available.</p>
           ) : (
             <div className="adventures-grid">
               {adventures.map((adventure) => (
-                <div 
-                  key={adventure.adventure_id} 
+                <div
+                  key={adventure.adventure_id}
                   className="adventure-card"
                   onClick={() => setSelectedAdventure(adventure)} // Added click handler
                 >
@@ -80,7 +81,7 @@ const AdventurePage = () => {
                   <div className="adventure-content">
                     <h2 className="adventure-title">{adventure.title}</h2>
                     <p className="adventure-description">{adventure.description}</p>
-                    <a href="/Map" className="direction-button">
+                    <a href={adventure.direction_url} className="direction-button">
                       Get Directions
                     </a>
                   </div>
@@ -92,29 +93,28 @@ const AdventurePage = () => {
 
         {/* Modal - New addition */}
         {selectedAdventure && (
-          <div className="adventure-modal">
-            <div className="modal-content">
-              <span 
-                className="close-modal" 
-                onClick={() => setSelectedAdventure(null)}
-              >
-                &times;
-              </span>
-              <img
-                src={`/uploads/adventurePage/${selectedAdventure.image_path}`}
-                alt={selectedAdventure.title}
-                className="modal-image"
-              />
-              <div className="modal-details">
-                <h2>{selectedAdventure.title}</h2>
-                <p>{selectedAdventure.description}</p>
-                <a href="/Map" className="modal-button">
-                  Get Directions
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
+  <div className="adventure-modal">
+    <div className="adv-modal-content">
+      <span className="adv-close-modal" onClick={() => setSelectedAdventure(null)}>
+        &times;
+      </span>
+      <img
+        src={`/uploads/adventurePage/${selectedAdventure.image_path}`}
+        alt={selectedAdventure.title}
+        className="adv-modal-image"
+      />
+      <div className="adv-modal-details">
+        <h2>{selectedAdventure.title}</h2>
+        <p>{selectedAdventure.description}</p>
+        <a href={selectedAdventure.direction_url}>
+          <button className='adv-modal-button'>
+            Directions
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+)}
       </div>
     </>
   );

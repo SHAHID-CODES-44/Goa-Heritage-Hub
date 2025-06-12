@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchWildlifeList } from "../services/wildlifeService";
 import './WildlifePage.css';
+import { Helmet } from 'react-helmet';
 import Wildlifeimg from '../uploads/WildLifePage/WildmainImg.png';
 
 const WildlifePage = () => {
@@ -27,6 +28,21 @@ const WildlifePage = () => {
   if (error) return <div className="error-screen">Error: {error}</div>;
 
   return (
+    <>
+     <Helmet>
+  <title>Wildlife in Goa | Explore Nature & Sanctuaries</title>
+  <meta
+    name="description"
+    content="Discover the rich wildlife of Goa through its famous sanctuaries and national parks. Explore rare species, lush forests, bird watching spots, and nature trails."
+  />
+  <meta
+    name="keywords"
+    content="Goa wildlife, wildlife sanctuaries in Goa, Goa national parks, bird watching Goa, nature trails Goa, Bondla sanctuary, Bhagwan Mahaveer, Mollem, Mhadei"
+  />
+  <meta name="author" content="YourSiteName" />
+  <meta name="robots" content="index, follow" />
+</Helmet>
+
     <div className="wildlife-container">
       {/* Hero Section */}
       <div className="wildlife-hero">
@@ -68,7 +84,7 @@ const WildlifePage = () => {
               <div className="about-box">
                 <h3 className="about-title">About</h3>
                 <p className="about-text">{item.description}</p>
-                <a href="/Map"><button className="explore-btn">Search on Map</button></a>
+                <a href={item.direction_url}><button className="explore-btn">Search on Map</button></a>
                 <a href="/Chatbot"><button className="explore-btn">Suggest Me</button></a>
               </div>
             </div>
@@ -88,6 +104,7 @@ const WildlifePage = () => {
         </div>
       </footer>
     </div>
+  </>
   );
 };
 

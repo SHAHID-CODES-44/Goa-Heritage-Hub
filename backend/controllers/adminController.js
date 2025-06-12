@@ -1,4 +1,4 @@
-import { Adventure, Beach } from '../models/adminModel.js';
+import { Adventure, Beach,Restaurant } from '../models/adminModel.js';
 
 // -------- Adventure Controllers --------
 
@@ -127,5 +127,68 @@ export const deleteBeach = async (req, res) => {
     res.json({ message: 'Beach deleted' });
   } catch (error) {
     res.status(500).json({ message: 'Error deleting beach', error: error.message });
+  }
+};
+
+// Get all restaurants
+export const getRestaurants = async (req, res) => {
+  try {
+    const restaurants = await Restaurant.findAll();
+    res.json(restaurants);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching restaurants', error: error.message });
+  }
+};
+
+// Get restaurant by ID
+export const getRestaurantById = async (req, res) => {
+  try {
+    const restaurant = await Restaurant.findByPk(req.params.id);
+    if (!restaurant) {
+      return res.status(404).json({ message: 'Restaurant not found' });
+    }
+    res.json(restaurant);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching restaurant', error: error.message });
+  }
+};
+
+// Create restaurant
+export const createRestaurant = async (req, res) => {
+  try {
+    const { name, location, cuisine, image, rating } = req.body;
+    const newRestaurant = await Restaurant.create({ name, location, cuisine, image, rating });
+    res.status(201).json({ message: 'Restaurant created', restaurant: newRestaurant });
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating restaurant', error: error.message });
+  }
+};
+
+// Update restaurant
+export const updateRestaurant = async (req, res) => {
+  try {
+    const { name, location, cuisine, image, rating } = req.body;
+    const restaurant = await Restaurant.findByPk(req.params.id);
+    if (!restaurant) {
+      return res.status(404).json({ message: 'Restaurant not found' });
+    }
+    await restaurant.update({ name, location, cuisine, image, rating });
+    res.json({ message: 'Restaurant updated', restaurant });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating restaurant', error: error.message });
+  }
+};
+
+// Delete restaurant
+export const deleteRestaurant = async (req, res) => {
+  try {
+    const restaurant = await Restaurant.findByPk(req.params.id);
+    if (!restaurant) {
+      return res.status(404).json({ message: 'Restaurant not found' });
+    }
+    await restaurant.destroy();
+    res.json({ message: 'Restaurant deleted' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting restaurant', error: error.message });
   }
 };

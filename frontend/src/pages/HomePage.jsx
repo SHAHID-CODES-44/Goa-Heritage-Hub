@@ -56,15 +56,12 @@ const HomePage = () => {
                 return res.json();
             })
             .then(data => setWeather(data))
-            .catch(err => setError(err.message));
+            .catch(err => setError('Not connected to network.'));
     }, []);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
-
-    if (error) return <div>Error: {error}</div>;
-    if (!weather) return <div>Loading...</div>;
 
     return (
         <>
@@ -89,24 +86,13 @@ const HomePage = () => {
                         <div className="navbar">
                             <img src={logo} alt="Goa Travel Logo" id="logo" />
 
-
-                            {/* Burger menu button (now on the right) */}
-                            {/* <button 
-        className={`mobile-menu-button ${isMobileMenuOpen ? 'open' : ''}`}
-        onClick={toggleMobileMenu}
-        aria-label="Toggle menu"
-    >
-        <span className="bar"></span>
-        <span className="bar"></span>
-        <span className="bar"></span>
-    </button> */}
                             <Menu
                                 size={100}
                                 onClick={toggleMobileMenu}
                                 aria-label="Toggle menu"
                                 className={`mobile-menu-button ${isMobileMenuOpen ? 'open' : ''}`}
                             />
-                            {/* Navigation links */}
+                            
                             <div className={`navtxt ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
                                 <Link to="/" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>Home</Link>
                                 <Link to="/Adventure" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>Adventure</Link>
@@ -114,19 +100,18 @@ const HomePage = () => {
                                 <Link to="/Beach" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>Beaches</Link>
                                 <Link to="/Wildlife" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>WildLife</Link>
                                 <Link to="/Food" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>Stay&Eats</Link>
-                                <Link to="/Feedback" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>Feedback</Link>
-                                <Link to="/Post" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>Posts</Link>
                             </div>
-                             {/* Move the register buttons before the burger menu for right-side placement */}
-    <div className={`register ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
-        <Link to="/SignupIn" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>
-            <button className="outline-btn">SignUp</button>
-        </Link>
-        <Link to="/SignupIn" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>
-            <button className="primary-btn">Login</button>
-        </Link>
-    </div>
+                            
+                            <div className={`register ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
+                                <Link to="/SignupIn" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>
+                                    <button className="outline-btn">SignUp</button>
+                                </Link>
+                                <Link to="/SignupIn" onClick={() => windowWidth <= 768 && toggleMobileMenu()}>
+                                    <button className="primary-btn">Login</button>
+                                </Link>
+                            </div>
                         </div>
+
                         <div className="title">
                             <h1>TRAVEL</h1>
                             <h2>Explore The beauty of Goa</h2>
@@ -149,18 +134,32 @@ const HomePage = () => {
                                 <p>Beaches</p>
                                 <p>43</p>
                             </div>
-
                         </div>
                     </div>
                 </div>
 
-                <div className={`weather-widget ${weather.main.temp > 30 ? 'hot' :
-                        weather.main.temp > 18 ? 'moderate' : 'cold'
-                    }`}>
-                    <h2>Weather in {weather.name}</h2>
-                    <p>Temperature: {weather.main.temp} °C</p>
-                    <p>Condition: {weather.weather[0].description}</p>
-                    <Link to="/WeatherApp"><button id="weather-btn">See Full Details</button></Link>
+                {/* Weather Section with error handling */}
+                <div className="weather-widget-container">
+                    {error ? (
+                        <div className="weather-widget error">
+                            <h2>Weather Information</h2>
+                            <p style={{ color: "red" }}>{error}</p>
+                        </div>
+                    ) : !weather ? (
+                        <div className="weather-widget loading">
+                            <h2>Weather Information</h2>
+                            <p>Loading weather data...</p>
+                        </div>
+                    ) : (
+                        <div className={`weather-widget ${weather.main.temp > 30 ? 'hot' :
+                            weather.main.temp > 18 ? 'moderate' : 'cold'
+                        }`}>
+                            <h2>Weather in {weather.name}</h2>
+                            <p>Temperature: {weather.main.temp} °C</p>
+                            <p>Condition: {weather.weather[0].description}</p>
+                            <Link to="/WeatherApp"><button id="weather-btn">See Full Details</button></Link>
+                        </div>
+                    )}
                 </div>
 
                 {/* Featured Images Section */}
@@ -170,40 +169,84 @@ const HomePage = () => {
                         <Link to="/Beach"><div className="featured-item">
                             <img src={image1} alt="Goa Destination 1" />
                             <p>Goa Beaches</p>
-                        </div>
-                        </Link>
+                        </div></Link>
                         <Link to="/Adventure"><div className="featured-item">
                             <img src={image2} alt="Goa Destination 2" />
                             <p>Adventures</p>
-                        </div>
-                        </Link>
+                        </div></Link>
                         <Link to="/Food"><div className="featured-item">
                             <img src={image3} alt="Goa Destination 3" />
                             <p>Goan Cuisine</p>
-                        </div>
-                        </Link>
+                        </div></Link>
                     </div>
                 </div>
 
                 {/* Gallery Section */}
-                <div className="gallery-section">
-                    <h2>Explore More of Goa</h2>
-                    <div className="gallery-grid">
-                        <img src={image4} alt="Goa Gallery 1" />
-                        <img src={image5} alt="Goa Gallery 2" />
-                        <img src={image6} alt="Goa Gallery 3" />
-                        <img src={image7} alt="Goa Gallery 4" />
-                        <img src={image8} alt="Goa Gallery 5" />
-                        <img src={image9} alt="Goa Gallery 6" />
-                        <img src={image10} alt="Goa Gallery 7" />
-                        <img src={image11} alt="Goa Gallery 8" />
-                        <img src={image12} alt="Goa Gallery 9" />
-                        <img src={anjuna} alt="Goa Gallery 10" />
-                    </div>
-                    <Link to="/Food"><button className="primary-btn gallery-btn">Restuarants in Goa</button></Link>
-                    <Link to="/Facts"><button className="primary-btn gallery-btn">Facts About Goa</button></Link>
-                </div>
+               <div className="gallery-section">
+  <h2 className="section-title">Discover Goa's Hidden Gems</h2>
+  <p className="section-subtitle">Explore the vibrant culture, stunning landscapes, and rich heritage of India's beach paradise</p>
+  
+  <div className="gallery-container">
+    <div className="gallery-main">
+      {/* Featured image with overlay */}
+      <div className="featured-image" 
+           style={{ backgroundImage: `url(${image4})` }}>
+        <div className="image-overlay">
+          <h3>Goa's Pristine Beaches</h3>
+          <p>50+ stunning beaches along the Arabian Sea</p>
+        </div>
+      </div>
+      
+      {/* Secondary images grid */}
+      <div className="secondary-grid">
+        {[image5, image6, image7].map((img, index) => (
+          <div key={index} className="gallery-item" 
+               style={{ backgroundImage: `url(${img})` }}>
+            <div className="hover-content">
+              <button className="quick-view-btn">Quick View</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    {/* Thumbnail carousel */}
+    <div className="thumbnail-carousel">
+      {[image8, image9, image10, image11, image12, anjuna].map((img, index) => (
+        <div key={index} className="thumbnail-item">
+          <img src={img} alt={`Goa thumbnail ${index+1}`} />
+          <div className="thumbnail-overlay"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  {/* Interactive CTA section */}
+  <div className="cta-section">
+    <div className="cta-card" onClick={() => navigate('/Food')}>
+      <div className="cta-icon">🍽️</div>
+      <h3>Goan Cuisine</h3>
+      <p>Explore 100+ restaurants serving authentic Goan flavors</p>
+      <button className="cta-btn">Discover Restaurants</button>
+    </div>
+    
+    <div className="cta-card" onClick={() => navigate('/Facts')}>
+      <div className="cta-icon">ℹ️</div>
+      <h3>Goa Facts</h3>
+      <p>Learn fascinating facts about Goa's history and culture</p>
+      <button className="cta-btn">Explore Facts</button>
+    </div>
+    
+    <div className="cta-card" onClick={() => navigate('/Adventure')}>
+      <div className="cta-icon">🚀</div>
+      <h3>Adventure Sports</h3>
+      <p>Experience thrilling water sports and activities</p>
+      <button className="cta-btn">Find Adventures</button>
+    </div>
+  </div>
+</div>
                 <hr />
+
                 {/* CTA Section */}
                 <div className="cta-section">
                     <img src={robotIcon} alt="Travel Assistant Robot" className="robot-icon" />
@@ -226,9 +269,13 @@ const HomePage = () => {
                             <Link to="/FAQ">FAQs</Link>
                             <Link to="/Transport">Transport in Goa</Link>
                             <Link to="/About">About</Link>
-                            <Link to="/Safety">Guide & safety tips</Link>
+                        </div>
+                        <div className="footer-links">
+                              <Link to="/Safety">Guide & safety tips</Link>
                             <Link to="/Contact">Contact</Link>
                             <Link to="/Terms">Terms & Conditions</Link>
+                            <Link to="/Feedback">Feedback to us</Link>
+                            <Link to="/Post">Posts & Reviews</Link>
                         </div>
                         <div className="footer-contact">
                             <h3>Contact Us</h3>

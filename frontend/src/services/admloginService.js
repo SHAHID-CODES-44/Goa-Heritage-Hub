@@ -1,17 +1,10 @@
-// frontend/src/services/admlogin/Service.js
-const BASE_URL = 'http://localhost:5000/api/admin/login';
+// frontend/src/services/admloginService.js
+import axios from 'axios';
 
-export const loginAdmin = async (username, password) => {
-  const res = await fetch(BASE_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password }),
+export const loginAdmin = async ({ username, password }) => {
+  const response = await axios.post('http://localhost:5000/api/admin/login', {
+    username,
+    password,
   });
-
-  if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.message || 'Login failed');
-  }
-
-  return res.json(); // will contain { token, message }
+  return response.data;
 };

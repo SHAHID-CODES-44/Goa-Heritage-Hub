@@ -37,15 +37,15 @@ const BeachPage = () => {
   const openModal = (beach) => {
     setSelectedBeach(beach);
     setModalOpen(true);
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setModalOpen(false);
-    document.body.style.overflow = 'auto'; // Re-enable scrolling
+    document.body.style.overflow = 'auto';
   };
 
-  // Filter beaches by location for display
+  // Filter beaches by location
   const northBeaches = beaches.filter(b => b.location.toLowerCase() === 'north goa');
   const southBeaches = beaches.filter(b => b.location.toLowerCase() === 'south goa');
 
@@ -76,6 +76,19 @@ const BeachPage = () => {
         <meta name="robots" content="index, follow" />
       </Helmet>
 
+      <div className="beach-navbar">
+        <div className="beach-nav-txt">
+          <a href="/"><p>Home</p></a>
+          <a href="/Wildlife"><p>Nature of Goa</p></a>
+          <a href="/Feedback"><p>Feedback</p></a>
+          <a href="/About"><p>About us</p></a>
+        </div>
+        <div className="beach-nav-btns">
+          <button className="SignupIn">Ask Bot</button>
+          <button className="SignupIn">Map</button>
+        </div>
+      </div>
+
       <div className="beach-page-container">
         <h1>Explore Beaches of Goa</h1>
 
@@ -100,32 +113,38 @@ const BeachPage = () => {
           <p className="error-message">{error}</p>
         ) : (
           <>
-            <section>
-              <h2>North Goa Beaches</h2>
-              <div className="beach-list">
-                {northBeaches.length === 0 ? <p>No beaches found.</p> : northBeaches.map(renderBeachCard)}
-              </div>
-            </section>
+            {/* Show only when North is selected or no filter */}
+            {(filters.location === 'North Goa' || !filters.location) && (
+              <section>
+                <h2>North Goa Beaches</h2>
+                <div className="beach-list">
+                  {northBeaches.length === 0 ? <p>No beaches found.</p> : northBeaches.map(renderBeachCard)}
+                </div>
+              </section>
+            )}
 
-            <section>
-              <h2>South Goa Beaches</h2>
-              <div className="beach-list">
-                {southBeaches.length === 0 ? <p>No beaches found.</p> : southBeaches.map(renderBeachCard)}
-              </div>
-            </section>
+            {/* Show only when South is selected or no filter */}
+            {(filters.location === 'South Goa' || !filters.location) && (
+              <section>
+                <h2>South Goa Beaches</h2>
+                <div className="beach-list">
+                  {southBeaches.length === 0 ? <p>No beaches found.</p> : southBeaches.map(renderBeachCard)}
+                </div>
+              </section>
+            )}
           </>
         )}
       </div>
 
-      {/* Beautiful Modal */}
+      {/* Modal */}
       {modalOpen && selectedBeach && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <button className="close-modal" onClick={closeModal}>
+        <div className="beach-modal-overlay" onClick={closeModal}>
+          <div className="beach-modal-content" onClick={e => e.stopPropagation()}>
+            <button className="beach-close-modal" onClick={closeModal}>
               &times;
             </button>
-            
-            <div className="modal-header">
+
+            <div className="beach-modal-header">
               <h2>{selectedBeach.name}</h2>
               <div className="beach-rating">
                 Rating: {selectedBeach.rating} ★
@@ -134,23 +153,23 @@ const BeachPage = () => {
                 {selectedBeach.location}
               </div>
             </div>
-            
-            <div className="modal-body">
+
+            <div className="beach-modal-body">
               <div className="modal-image-container">
-                <img 
-                  src={`/uploads/BeachPage/${selectedBeach.image}`} 
-                  alt={selectedBeach.name} 
-                  className="modal-image"
+                <img
+                  src={`/uploads/BeachPage/${selectedBeach.image}`}
+                  alt={selectedBeach.name}
+                  className="beach-modal-image"
                 />
               </div>
-              
-              <div className="modal-details">
+
+              <div className="beach-modal-details">
                 <h3>About This Beach</h3>
                 <p>{selectedBeach.description}</p>
-                
+
                 <div className="features-grid">
                   <div className="feature">
-                    <span className="feature-icon">🏖️</span>
+                    <span className="feature-icon">🏖</span>
                     <span className="feature-text">Beach Type: {selectedBeach.type || 'Sandy'}</span>
                   </div>
                   <div className="feature">
@@ -166,18 +185,22 @@ const BeachPage = () => {
                     <span className="feature-text">Sunset View: {selectedBeach.sunsetView ? 'Yes' : 'No'}</span>
                   </div>
                 </div>
-                
-                <div className="modal-actions">
-                  <a href="/Map"><button className="directions-btn">
+
+                <div className="beach-modal-actions">
+                  <button
+                    className="beach-directions-btn"
+                    type="button"
+                    onClick={() => window.open(selectedBeach.directions_url, '_blank')}
+                  >
                     Get Directions
                   </button>
-                  </a>
-                  <button className="save-btn">
-                    Save to Favorites
-                  </button>
+
+
+                  <button className="save-btn">Save to Favorites</button>
+                  <button className="beach-close-button" onClick={closeModal}>Close</button>
                 </div>
               </div>
-            </div>
+            </div> 
           </div>
         </div>
       )}

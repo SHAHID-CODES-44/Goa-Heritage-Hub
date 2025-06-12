@@ -248,7 +248,7 @@ body {
   backdrop-filter: blur(5px);
 }
 
-.modal-content {
+.adv-modal-content {
   position: relative;
   background: white;
   padding: 2rem;
@@ -266,7 +266,7 @@ body {
   to { opacity: 1; transform: scale(1); }
 }
 
-.close-modal {
+.adv-close-modal {
   position: absolute;
   top: 15px;
   right: 20px;
@@ -276,34 +276,35 @@ body {
   transition: color 0.3s;
 }
 
-.close-modal:hover {
+.adv-close-modal:hover {
   color: #ff0000;
 }
 
-.modal-image {
-  width: 100%;
+.adv-modal-image {
+  width: 60%;
   max-height: 400px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 1rem;
 }
 
-.modal-details {
+.adv-modal-details {
   padding: 1rem;
+  width: 50%;
 }
 
-.modal-details h2 {
+.adv-modal-details h2 {
   color: #2c3e50;
   margin-bottom: 1rem;
 }
 
-.modal-details p {
+.adv-modal-details p {
   color: #555;
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
 
-.modal-button {
+.adv-modal-button {
   display: inline-block;
   padding: 10px 20px;
   background-color: #3498db;
@@ -313,7 +314,7 @@ body {
   transition: background-color 0.3s;
 }
 
-.modal-button:hover {
+.adv-modal-button:hover {
   background-color: #2980b9;
 }
 

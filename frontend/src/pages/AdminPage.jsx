@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import { useNavigate} from 'react-router-dom';
 import {
   getAdventures,
   createAdventure,
@@ -9,11 +9,37 @@ import {
   getBeaches,
   createBeach,
   updateBeach,
-  deleteBeach
+  deleteBeach,
+  getRestaurants,
+  createRestaurant,
+  updateRestaurant,
+  deleteRestaurant
 } from '../services/adminService';
 import './Admin.css';
 
+
 const AdminPage = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [errora, setErrora] = useState('');
+
+const navigate = useNavigate();
+
+
+const handleLogout = () => {
+  localStorage.removeItem('adminToken');
+  navigate('/AdminLogin');
+};
+  const correctPassword = 'open123'; // Set your secret password here
+
+  const handleLogin = () => {
+    if (password === correctPassword) {
+      setIsAuthenticated(true);
+      setErrora('');
+    } else {
+      setErrora('Incorrect password. Try again.');
+    }
+  };
   // --- Adventures state ---
   const [adventures, setAdventures] = useState([]);
   const [adventureForm, setAdventureForm] = useState({
@@ -34,8 +60,18 @@ const AdminPage = () => {
     rating: '',
     directions_url: ''
   });
-  const [beachEditingId, setBeachEditingId] = useState(null);
 
+  const [beachEditingId, setBeachEditingId] = useState(null);
+const [restaurants, setRestaurants] = useState([]);
+const [restaurantForm, setRestaurantForm] = useState({
+  name: '',
+  location: '',
+  description: '',
+  image: '',
+  rating: '',
+  directions_url: ''
+});
+const [restaurantEditingId, setRestaurantEditingId] = useState(null);
   // --- Shared states ---
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -46,9 +82,15 @@ const AdminPage = () => {
     setLoading(true);
     setError(null);
     try {
-      const [advData, beachData] = await Promise.all([getAdventures(), getBeaches()]);
-      setAdventures(advData);
-      setBeaches(beachData);
+      const [advData, beachData, restaurantData] = await Promise.all([
+  getAdventures(),
+  getBeaches(),
+  getRestaurants()
+]);
+setAdventures(advData);
+setBeaches(beachData);
+setRestaurants(restaurantData);
+
     } catch (err) {
       setError('Failed to load data. Please try again later.');
     }
@@ -156,6 +198,57 @@ const AdminPage = () => {
       setError(err.message || 'Failed to delete beach.');
     }
   };
+const handleRestaurantChange = (e) => {
+  setRestaurantForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+};
+
+const handleRestaurantSubmit = async (e) => {
+  e.preventDefault();
+  setError(null);
+  setSuccess(null);
+  try {
+    const formPayload = {
+      ...restaurantForm,
+      rating: parseFloat(restaurantForm.rating) || 0
+    };
+    if (restaurantEditingId) {
+      await updateRestaurant(restaurantEditingId, formPayload);
+      setSuccess('Restaurant updated successfully!');
+    } else {
+      await createRestaurant(formPayload);
+      setSuccess('Restaurant created successfully!');
+    }
+    await fetchAll();
+    setRestaurantForm({ name: '', location: '', description: '', image: '', rating: '', directions_url: '' });
+    setRestaurantEditingId(null);
+  } catch (err) {
+    setError(err.message || 'Error saving restaurant.');
+  }
+};
+
+const handleRestaurantEdit = (restaurant) => {
+  setRestaurantForm({
+    name: restaurant.name,
+    location: restaurant.location,
+    description: restaurant.description,
+    image: restaurant.image,
+    rating: restaurant.rating ? restaurant.rating.toString() : '',
+    directions_url: restaurant.directions_url
+  });
+  setRestaurantEditingId(restaurant.id);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const handleRestaurantDelete = async (id) => {
+  if (!window.confirm('Are you sure you want to delete this restaurant?')) return;
+  try {
+    await deleteRestaurant(id);
+    setSuccess('Restaurant deleted successfully!');
+    await fetchAll();
+  } catch (err) {
+    setError(err.message || 'Failed to delete restaurant.');
+  }
+};
 
   // Clear notifications after 5 seconds
   useEffect(() => {
@@ -171,7 +264,11 @@ const AdminPage = () => {
   return (
     <div className="admin-container">
 
+<button onClick={handleLogout}>Logout</button>
+
       {/* Adventure Management Section */}
+      <br />
+      <br />
       <h1 className="admin-title">Admin Adventure Management</h1>
 
       {/* Notifications */}
@@ -262,6 +359,8 @@ const AdminPage = () => {
       <br />
 
       {/* Beach Management Section */}
+      <br />
+      <br />
       <h1 className="admin-title">Admin Beach Management</h1>
 
       {/* Beach Form */}
@@ -354,6 +453,104 @@ const AdminPage = () => {
           </table>
         )}
       </div>
+      <br />
+      <br />
+<h1 className="admin-title">Admin Restaurant Management</h1>
+
+<form onSubmit={handleRestaurantSubmit} className="admin-form">
+  <div className="form-group">
+    <label htmlFor="restaurantName">Name</label>
+    <input id="restaurantName" name="name" className="form-input" placeholder="Enter restaurant name" value={restaurantForm.name} onChange={handleRestaurantChange} required />
+  </div>
+  <div className="form-group">
+    <label htmlFor="restaurantLocation">Location</label>
+    <input id="restaurantLocation" name="location" className="form-input" placeholder="Enter location" value={restaurantForm.location} onChange={handleRestaurantChange} required />
+  </div>
+  <div className="form-group">
+    <label htmlFor="restaurantDescription">Description</label>
+    <textarea id="restaurantDescription" name="description" className="form-textarea" rows={4} placeholder="Enter description" value={restaurantForm.description} onChange={handleRestaurantChange} required />
+  </div>
+  <div className="form-group">
+    <label htmlFor="restaurantImage">Image URL</label>
+    <input id="restaurantImage" name="image" className="form-input" placeholder="Enter image URL" value={restaurantForm.image} onChange={handleRestaurantChange} required />
+  </div>
+  <div className="form-group">
+    <label htmlFor="restaurantRating">Rating</label>
+    <input id="restaurantRating" name="rating" type="number" step="0.1" min="0" max="5" className="form-input" placeholder="Enter rating" value={restaurantForm.rating} onChange={handleRestaurantChange} />
+  </div>
+  <div className="form-group">
+    <label htmlFor="restaurantDirections">Directions URL</label>
+    <input id="restaurantDirections" name="directions_url" className="form-input" placeholder="Enter directions URL" value={restaurantForm.directions_url} onChange={handleRestaurantChange} />
+  </div>
+  <div className="form-actions">
+    <button type="submit" className="form-button primary-button">
+      {restaurantEditingId ? (<><i className="fas fa-save"></i> Update Restaurant</>) : (<><i className="fas fa-plus"></i> Add Restaurant</>)}
+    </button>
+    {restaurantEditingId && (
+      <button type="button" className="form-button secondary-button" onClick={() => {
+        setRestaurantEditingId(null);
+        setRestaurantForm({ name: '', location: '', description: '', image: '', rating: '', directions_url: '' });
+      }}>
+        <i className="fas fa-times"></i> Cancel
+      </button>
+    )}
+  </div>
+</form>
+<div className="restaurants-list">
+  <h2 className="section-title"><i className="fas fa-utensils"></i> Current Restaurants</h2>
+  {loading ? (
+    <div className="loading-state"><i className="fas fa-spinner fa-spin"></i><p>Loading restaurants...</p></div>
+  ) : restaurants.length === 0 ? (
+    <div className="empty-state"><i className="fas fa-store-alt"></i><p>No restaurants found. Add one to get started!</p></div>
+  ) : (
+    <table className="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Description</th>
+          <th>Image</th>
+          <th>Rating</th>
+          <th>Directions</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Array.isArray(restaurants) && restaurants.map(restaurant => (
+  <tr key={restaurant.id}>
+    <td>{restaurant.name}</td>
+    <td>{restaurant.location}</td>
+    <td className="description-cell">
+      {restaurant.description?.length > 100 
+        ? `${restaurant.description.substring(0, 100)}...` 
+        : restaurant.description}
+    </td>
+    <td>
+      <a href={restaurant.image} target="_blank" rel="noopener noreferrer" className="image-link">
+        <i className="fas fa-image"></i> View
+      </a>
+    </td>
+    <td>{restaurant.rating}</td>
+    <td>
+      <a href={restaurant.direction_url} target="_blank" rel="noopener noreferrer" className="direction-link">
+        <i className="fas fa-directions"></i> Directions
+      </a>
+    </td>
+    <td className="actions-cell">
+      <button onClick={() => handleRestaurantEdit(restaurant)} className="action-button edit-button">
+        <i className="fas fa-edit"></i>
+      </button>
+      <button onClick={() => handleRestaurantDelete(restaurant.id)} className="action-button delete-button">
+        <i className="fas fa-trash-alt"></i>
+      </button>
+    </td>
+  </tr>
+))}
+
+      </tbody>
+    </table>
+  )}
+</div>
 
     </div>
   );
