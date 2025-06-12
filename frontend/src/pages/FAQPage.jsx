@@ -87,7 +87,6 @@ const FAQPage = () => {
 
          
         </div>
-         <div className="faq-btn">You May Find Your Answers Here</div>
       </div>
     </div>
   );

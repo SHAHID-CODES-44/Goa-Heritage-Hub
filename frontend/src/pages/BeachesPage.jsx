@@ -84,8 +84,8 @@ const BeachPage = () => {
           <a href="/About"><p>About us</p></a>
         </div>
         <div className="beach-nav-btns">
-          <button className="SignupIn">Ask Bot</button>
-          <button className="SignupIn">Map</button>
+          <a href="/Chatbot"><button className="SignupIn">Ask Bot</button></a>
+          <a href="/Map"><button className="SignupIn">Map</button></a>
         </div>
       </div>
 
@@ -196,7 +196,7 @@ const BeachPage = () => {
                   </button>
 
 
-                  <button className="save-btn">Save to Favorites</button>
+                  {/* <button className="save-btn">Save to Favorites</button> */}
                   <button className="beach-close-button" onClick={closeModal}>Close</button>
                 </div>
               </div>

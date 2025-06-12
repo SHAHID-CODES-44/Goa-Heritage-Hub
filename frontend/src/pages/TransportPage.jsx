@@ -7,13 +7,13 @@ const GoaTransportationGuide = () => {
       {/* Navbar */}
       <nav id="transport-navbar" className="transport-navbar">
         <ul className="transport-nav-list">
-          <li className="transport-nav-item"><a href="#transport-home">Home</a></li>
-          <li className="transport-nav-item"><a href="#transport-beach">Beach</a></li>
-          <li className="transport-nav-item"><a href="#transport-restaurants">Restaurants</a></li>
-          <li className="transport-nav-item"><a href="#transport-wildlife">Wild Life</a></li>
-          <li className="transport-nav-item"><a href="#transport-feedback">Feedback</a></li>
-          <li className="transport-nav-item"><a href="#transport-login">Login</a></li>
-          <li className="transport-nav-item"><a href="#transport-signup">Signup</a></li>
+          <li className="transport-nav-item"><a href="/">Home</a></li>
+          <li className="transport-nav-item"><a href="/Beach">Beach</a></li>
+          <li className="transport-nav-item"><a href="/Food">Restaurants</a></li>
+          <li className="transport-nav-item"><a href="/Wildlife">Wild Life</a></li>
+          <li className="transport-nav-item"><a href="/Feedback">Feedback</a></li>
+          <li className="transport-nav-item"><a href="/SignupIn">Login</a></li>
+          <li className="transport-nav-item"><a href="/SignupIn">Signup</a></li>
         </ul>
       </nav>
 
