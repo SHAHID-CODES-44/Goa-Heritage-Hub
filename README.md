@@ -1,12 +1,100 @@
-# React + Vite
+Goa Heritage Hub..........
+A dynamic tourism website that helps travelers explore, filter, and reach the top tourist destinations across Goa. The platform offers live routing, real-time content updates through an admin panel, and a user-friendly interface to assist tourists in planning their journey easily.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Project Structure..........
+Goa-Tourism-Guide/
 
-Currently, two official plugins are available:
+Backend/
+controllers/
+models/
+routes/
+configure/
+server.js
+Frontend/
+public/images/
+src/
+pages/
+services/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Purpose of the Website.............
 
-## Expanding the ESLint configuration
+Help tourists discover locations based on their preferences.
+Provide direct routing to locations using map services.
+Allow filtering of destinations such as:
+Beaches
+Restaurants
+Wildlife
+Adventure spots
+Enable live data updates via an admin panel.
+Include emergency contact details and transport guidance.
+Feature a chatbot to guide users step-by-step to their ideal destinations.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+GitHub Repository...........
+
+Goa Tourism Guide Repository
+Developer Information
+Email: shahid.infipre.intern@gmail.com
+Contact: +91 7249280617
+
+Technologies Used...........
+
+Frontend
+React
+React Router
+Axios
+Leaflet (for maps)
+Backend..........
+
+Node.js
+Express.js
+Sequelize ORM
+MySQL
+APIs:
+OSRM for live map routing
+Setup Instructions
+Edit the database config:
+Open Backend/configure/db.js
+
+Set the following values.........
+
+DB_USER
+
+DB_PASSWORD
+
+DB_NAME
+
+
+
+Install dependencies:
+
+Open two terminal windows or tabs.
+
+In Terminal 1 (Backend):
+
+Navigate: cd Backend
+
+Install: npm install
+
+Run server: node server.js
+
+In Terminal 2 (Frontend):
+
+Navigate: cd Frontend
+
+Install: npm install
+
+Run dev server: npm run dev
+
+The site should now be running locally.
+
+
+Features
+Category-based filtering of destinations
+Direct location routing with map
+Admin panel for adding/updating data
+Chatbot assistance for personalized suggestions
+Emergency contact list and transport guide
+Real-time data handling through feedback and admin inputs
+
+Deployment
+Deployment setup was not possible due to sudden crash in server.
